@@ -99,6 +99,11 @@ namespace CSA_Tracker_for_FBLA
 
         private void SignInButton_Click(object sender, EventArgs e)
         {
+            AttemptSignIn();
+        }
+
+        private void AttemptSignIn()
+        {
             SQLiteCommand selectCmd = new SQLiteCommand("SELECT * FROM Users", con);
 
             con.Open();
@@ -164,12 +169,26 @@ namespace CSA_Tracker_for_FBLA
             }
             else
             {
-                detailedUser = new DetailedUser(this);
+                detailedUser = new DetailedUser(this, user);
                 detailedUser.Show();
             }
 
             signedIn = true;
             this.Hide();
+        }
+        private void UserBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+                PassBox.Focus();
+            if (e.KeyData == Keys.Down)
+                PassBox.Focus();
+        }
+        private void PassBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+                AttemptSignIn();
+            if (e.KeyData == Keys.Up)
+                UserBox.Focus();
         }
     }
 }

@@ -77,6 +77,7 @@ namespace CSA_Tracker_for_FBLA
 
             login.ChangeTheme();
             try { login.adminPage.ChangeTheme(); } catch { }
+            try { login.detailedUser.ChangeTheme(); } catch { }
         }
 
         public void ChangeRememberValues()

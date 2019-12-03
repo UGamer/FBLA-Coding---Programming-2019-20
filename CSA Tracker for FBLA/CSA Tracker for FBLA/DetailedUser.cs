@@ -15,16 +15,38 @@ namespace CSA_Tracker_for_FBLA
     {
         Login login;
 
+        string user;
+        string studentNumber;
+
         string connectionString = "Data Source=data.db;Version=3;";
         SQLiteConnection con;
 
         bool closeAll = true;
-        public DetailedUser(Login login)
+        public DetailedUser(Login login, string user)
         {
             this.login = login;
+            this.user = user;
+
             con = new SQLiteConnection(connectionString);
 
+            SQLiteCommand selectCmd = new SQLiteCommand("SELECT * FROM Users", con);
+
+            con.Open();
+
+            SQLiteDataAdapter da = new SQLiteDataAdapter(selectCmd);
+            DataTable table = new DataTable();
+            da.Fill(table);
+
+            con.Close();
+
+            for (int index = 0; index < table.Rows.Count; index++)
+            {
+                if (table.Rows[index][0].ToString() == user)
+                    studentNumber = table.Rows[index][9].ToString();
+            }
+
             InitializeComponent();
+            ChangeTheme();
         }
 
         private void DetailedUser_FormClosed(object sender, FormClosedEventArgs e)
@@ -58,6 +80,60 @@ namespace CSA_Tracker_for_FBLA
             login.Show();
             closeAll = false;
             this.Close();
+        }
+
+        public void ChangeTheme()
+        {
+            if (login.settings.theme == "Dark")
+            {
+                BackColor = Color.FromArgb(41, 41, 41);
+
+                // Field Labels
+                NameLabel.ForeColor = Color.White;
+                StudentGradeLabel.ForeColor = Color.White;
+                HoursLabel.ForeColor = Color.White;
+
+                // Add, Edit, Remove buttons
+                AddButton.BackColor = Color.FromArgb(64, 64, 64);
+                EditButton.BackColor = Color.FromArgb(64, 64, 64);
+                DeleteButton.BackColor = Color.FromArgb(64, 64, 64);
+
+                AddButton.ForeColor = Color.White;
+                EditButton.ForeColor = Color.White;
+                DeleteButton.ForeColor = Color.White;
+
+                // Settings and SignOut buttons
+                SettingsButton.BackColor = Color.FromArgb(64, 64, 64);
+                SignOutButton.BackColor = Color.FromArgb(64, 64, 64);
+
+                SettingsButton.ForeColor = Color.White;
+                SignOutButton.ForeColor = Color.White;
+            }
+            else
+            {
+                BackColor = Color.FromName("Control");
+
+                // Field Labels
+                NameLabel.ForeColor = Color.Black;
+                StudentGradeLabel.ForeColor = Color.Black;
+                HoursLabel.ForeColor = Color.Black;
+
+                // Add, Edit, Remove buttons
+                AddButton.BackColor = Color.FromName("Control");
+                EditButton.BackColor = Color.FromName("Control");
+                DeleteButton.BackColor = Color.FromName("Control");
+
+                AddButton.ForeColor = Color.Black;
+                EditButton.ForeColor = Color.Black;
+                DeleteButton.ForeColor = Color.Black;
+
+                // Settings and SignOut buttons
+                SettingsButton.BackColor = Color.FromName("Control");
+                SignOutButton.BackColor = Color.FromName("Control");
+
+                SettingsButton.ForeColor = Color.Black;
+                SignOutButton.ForeColor = Color.Black;
+            }
         }
     }
 }
