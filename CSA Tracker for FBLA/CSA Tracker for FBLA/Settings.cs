@@ -17,8 +17,11 @@ namespace CSA_Tracker_for_FBLA
 
         string connectionString;
         SQLiteConnection con;
+        DataTable table;
 
         public string theme;
+        public string remember;
+        public string rememberUser;
 
         public Settings(Login login)
         {
@@ -32,17 +35,26 @@ namespace CSA_Tracker_for_FBLA
             con.Open();
 
             SQLiteDataAdapter da = new SQLiteDataAdapter(selectCmd);
-            DataTable table = new DataTable();
+            table = new DataTable();
             da.Fill(table);
 
             con.Close();
 
             theme = table.Rows[0][1].ToString();
+            remember = table.Rows[1][1].ToString();
+            rememberUser = table.Rows[2][1].ToString();
+
             Console.WriteLine(theme);
 
             InitializeComponent();
 
-            ChangeTheme();
+            if (theme == "Dark")
+            {
+                BackColor = Color.FromArgb(41, 41, 41);
+                ThemeButton.Text = "Dark";
+                ThemeButton.ForeColor = Color.White;
+                ThemeButton.BackColor = Color.FromArgb(64, 64, 64);
+            }
         }
 
         public void ChangeTheme()
@@ -59,11 +71,17 @@ namespace CSA_Tracker_for_FBLA
                 BackColor = Color.FromName("Control");
                 ThemeButton.Text = "Light";
                 ThemeButton.ForeColor = Color.Black;
-                ThemeButton.BackColor = Color.Transparent;
+                ThemeButton.BackColor = Color.FromName("Control");
                 
             }
 
             login.ChangeTheme();
+            try { login.adminPage.ChangeTheme(); } catch { }
+        }
+
+        public void ChangeRememberValues()
+        {
+
         }
 
         private void ThemeButton_Click(object sender, EventArgs e)
