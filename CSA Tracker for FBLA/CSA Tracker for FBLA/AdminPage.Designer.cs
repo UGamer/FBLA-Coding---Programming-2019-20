@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminPage));
             this.SettingsButton = new System.Windows.Forms.Button();
             this.DGV = new System.Windows.Forms.DataGridView();
@@ -62,15 +63,22 @@
             this.SettingsButton.Text = "⚙";
             this.SettingsButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.SettingsButton.UseVisualStyleBackColor = true;
+            this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // DGV
             // 
             this.DGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV.EnableHeadersVisualStyles = false;
             this.DGV.Location = new System.Drawing.Point(12, 183);
             this.DGV.Name = "DGV";
+            this.DGV.RowHeadersVisible = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Red;
+            this.DGV.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV.Size = new System.Drawing.Size(993, 323);
             this.DGV.TabIndex = 11;
             // 
@@ -127,6 +135,7 @@
             this.FirstNameBox.Name = "FirstNameBox";
             this.FirstNameBox.Size = new System.Drawing.Size(198, 20);
             this.FirstNameBox.TabIndex = 17;
+            this.FirstNameBox.TextChanged += new System.EventHandler(this.SearchBoxes_TextChanged);
             // 
             // LastNameBox
             // 
@@ -135,6 +144,7 @@
             this.LastNameBox.Name = "LastNameBox";
             this.LastNameBox.Size = new System.Drawing.Size(198, 20);
             this.LastNameBox.TabIndex = 19;
+            this.LastNameBox.TextChanged += new System.EventHandler(this.SearchBoxes_TextChanged);
             // 
             // LastNameLabel
             // 
@@ -153,6 +163,7 @@
             this.StudentNumberBox.Name = "StudentNumberBox";
             this.StudentNumberBox.Size = new System.Drawing.Size(198, 20);
             this.StudentNumberBox.TabIndex = 21;
+            this.StudentNumberBox.TextChanged += new System.EventHandler(this.SearchBoxes_TextChanged);
             // 
             // StudentNumberLabel
             // 
@@ -191,6 +202,7 @@
             this.GradeBox.Name = "GradeBox";
             this.GradeBox.Size = new System.Drawing.Size(121, 21);
             this.GradeBox.TabIndex = 23;
+            this.GradeBox.TextChanged += new System.EventHandler(this.SearchBoxes_TextChanged);
             // 
             // DGVContextMenu
             // 

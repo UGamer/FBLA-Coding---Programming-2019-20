@@ -26,6 +26,7 @@ namespace CSA_Tracker_for_FBLA
 
             InitializeComponent();
             ChangeTheme();
+            FillDGV();
         }
 
         public void ChangeTheme()
@@ -54,6 +55,15 @@ namespace CSA_Tracker_for_FBLA
 
                 // Double Click label
                 DoubleClickLabel.ForeColor = Color.White;
+
+                // DGV
+                DGV.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(35,35,35);
+                DGV.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+
+                DGV.RowsDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
+                DGV.RowsDefaultCellStyle.ForeColor = Color.White;
+
+                DGV.BackgroundColor = Color.FromArgb(35, 35, 35);
 
                 // Settings and SignOut buttons
                 SettingsButton.BackColor = Color.FromArgb(64, 64, 64);
@@ -96,10 +106,23 @@ namespace CSA_Tracker_for_FBLA
             }
         }
 
-        private void AdminPage_FormClosed(object sender, FormClosedEventArgs e)
+        private void FillDGV()
         {
-            if (closeAll)
-                login.Close();
+            SQLiteCommand selectCmd = new SQLiteCommand("SELECT * FROM Data", con);
+            con.Open();
+
+            SQLiteDataAdapter da = new SQLiteDataAdapter(selectCmd);
+            DataTable table = new DataTable();
+            da.Fill(table);
+
+            con.Close();
+
+            DGV.DataSource = table;
+        }
+
+        private void SearchBoxes_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void SignOutButton_Click(object sender, EventArgs e)
@@ -127,6 +150,19 @@ namespace CSA_Tracker_for_FBLA
             login.Show();
             closeAll = false;
             this.Close();
+        }
+
+        
+
+        private void AdminPage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (closeAll)
+                login.Close();
+        }
+
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            login.settings.Show();
         }
     }
 }
