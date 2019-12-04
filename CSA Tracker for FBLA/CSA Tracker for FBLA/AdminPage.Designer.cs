@@ -48,8 +48,11 @@
             this.DGVContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SignOutButton = new System.Windows.Forms.Button();
             this.LogoBox = new System.Windows.Forms.PictureBox();
+            this.RowHeightLabel = new System.Windows.Forms.Label();
+            this.RowHeightBox = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LogoBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RowHeightBox)).BeginInit();
             this.SuspendLayout();
             // 
             // SettingsButton
@@ -78,9 +81,11 @@
             this.DGV.RowHeadersVisible = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Red;
             this.DGV.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.DGV.RowTemplate.Height = 50;
             this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV.Size = new System.Drawing.Size(993, 323);
             this.DGV.TabIndex = 11;
+            this.DGV.RowHeightChanged += new System.Windows.Forms.DataGridViewRowEventHandler(this.DGV_RowHeightChanged);
             // 
             // DoubleClickLabel
             // 
@@ -99,6 +104,7 @@
             this.AddButton.TabIndex = 13;
             this.AddButton.Text = "+ Add";
             this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // EditButton
             // 
@@ -232,11 +238,31 @@
             this.LogoBox.TabIndex = 24;
             this.LogoBox.TabStop = false;
             // 
+            // RowHeightLabel
+            // 
+            this.RowHeightLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.RowHeightLabel.AutoSize = true;
+            this.RowHeightLabel.Location = new System.Drawing.Point(802, 159);
+            this.RowHeightLabel.Name = "RowHeightLabel";
+            this.RowHeightLabel.Size = new System.Drawing.Size(66, 13);
+            this.RowHeightLabel.TabIndex = 27;
+            this.RowHeightLabel.Text = "Row Height:";
+            // 
+            // RowHeightBox
+            // 
+            this.RowHeightBox.Location = new System.Drawing.Point(868, 157);
+            this.RowHeightBox.Name = "RowHeightBox";
+            this.RowHeightBox.Size = new System.Drawing.Size(137, 20);
+            this.RowHeightBox.TabIndex = 29;
+            this.RowHeightBox.ValueChanged += new System.EventHandler(this.RowHeightBox_ValueChanged);
+            // 
             // AdminPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1017, 560);
+            this.Controls.Add(this.RowHeightBox);
+            this.Controls.Add(this.RowHeightLabel);
             this.Controls.Add(this.SignOutButton);
             this.Controls.Add(this.LogoBox);
             this.Controls.Add(this.GradeBox);
@@ -260,6 +286,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminPage_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LogoBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RowHeightBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,5 +311,7 @@
         private System.Windows.Forms.PictureBox LogoBox;
         private System.Windows.Forms.ContextMenuStrip DGVContextMenu;
         private System.Windows.Forms.Button SignOutButton;
+        private System.Windows.Forms.Label RowHeightLabel;
+        private System.Windows.Forms.NumericUpDown RowHeightBox;
     }
 }

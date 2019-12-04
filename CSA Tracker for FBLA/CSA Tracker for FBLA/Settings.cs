@@ -22,6 +22,8 @@ namespace CSA_Tracker_for_FBLA
         public string theme;
         public string remember;
         public string rememberUser;
+        public int adminRowHeight;
+        public int userRowHeight;
 
         public Settings(Login login)
         {
@@ -43,6 +45,8 @@ namespace CSA_Tracker_for_FBLA
             theme = table.Rows[0][1].ToString();
             remember = table.Rows[1][1].ToString();
             rememberUser = table.Rows[2][1].ToString();
+            adminRowHeight = Convert.ToInt32(table.Rows[3][1].ToString());
+            userRowHeight = Convert.ToInt32(table.Rows[4][1].ToString());
 
             Console.WriteLine(theme);
 

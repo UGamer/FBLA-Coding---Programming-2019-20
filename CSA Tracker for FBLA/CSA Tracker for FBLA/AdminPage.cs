@@ -53,8 +53,9 @@ namespace CSA_Tracker_for_FBLA
                 EditButton.ForeColor = Color.White;
                 DeleteButton.ForeColor = Color.White;
 
-                // Double Click label
+                // Double Click and Row Height label
                 DoubleClickLabel.ForeColor = Color.White;
+                RowHeightLabel.ForeColor = Color.White;
 
                 // DGV
                 DGV.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(35,35,35);
@@ -94,8 +95,9 @@ namespace CSA_Tracker_for_FBLA
                 EditButton.ForeColor = Color.Black;
                 DeleteButton.ForeColor = Color.Black;
 
-                // Double Click label
+                // Double Click and Row Height label
                 DoubleClickLabel.ForeColor = Color.Black;
+                RowHeightLabel.ForeColor = Color.Black;
 
                 // Settings and SignOut buttons
                 SettingsButton.BackColor = Color.FromName("Control");
@@ -116,6 +118,9 @@ namespace CSA_Tracker_for_FBLA
             da.Fill(table);
 
             con.Close();
+
+            DGV.RowTemplate.Height = login.settings.adminRowHeight;
+            RowHeightBox.Value = login.settings.adminRowHeight;
 
             DGV.DataSource = table;
         }
@@ -163,6 +168,54 @@ namespace CSA_Tracker_for_FBLA
         private void SettingsButton_Click(object sender, EventArgs e)
         {
             login.settings.Show();
+        }
+
+        private void RowHeightBox_ValueChanged(object sender, EventArgs e)
+        {
+            int height = Convert.ToInt32(RowHeightBox.Value);
+            DGV.RowTemplate.Height = height;
+
+            for (int index = 0; index < DGV.Rows.Count; index++)
+                DGV.Rows[index].Height = height;
+
+            string command = "UPDATE Settings SET Value = @Value WHERE Category = 'AdminRowHeight';";
+
+            SQLiteCommand replaceSettingsCmd = new SQLiteCommand(command, con);
+
+            con.Open();
+            replaceSettingsCmd.Parameters.AddWithValue("@Value", height);
+            replaceSettingsCmd.ExecuteNonQuery();
+            replaceSettingsCmd.Parameters.RemoveAt(0);
+
+            con.Close();
+        }
+
+        private void DGV_RowHeightChanged(object sender, DataGridViewRowEventArgs e)
+        {
+            int height = e.Row.Height;
+
+            RowHeightBox.Value = e.Row.Height;
+
+            DGV.RowTemplate.Height = height;
+
+            for (int index = 0; index < DGV.Rows.Count; index++)
+                DGV.Rows[index].Height = height;
+
+            string command = "UPDATE Settings SET Value = @Value WHERE Category = 'AdminRowHeight';";
+
+            SQLiteCommand replaceSettingsCmd = new SQLiteCommand(command, con);
+
+            con.Open();
+            replaceSettingsCmd.Parameters.AddWithValue("@Value", height);
+            replaceSettingsCmd.ExecuteNonQuery();
+            replaceSettingsCmd.Parameters.RemoveAt(0);
+
+            con.Close();
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
