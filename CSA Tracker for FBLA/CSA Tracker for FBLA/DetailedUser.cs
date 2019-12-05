@@ -29,21 +29,61 @@ namespace CSA_Tracker_for_FBLA
 
             con = new SQLiteConnection(connectionString);
 
-            SQLiteCommand selectCmd = new SQLiteCommand("SELECT * FROM Users", con);
+            SQLiteCommand selectUsersCmd = new SQLiteCommand("SELECT * FROM Users", con);
+            SQLiteCommand selectDataCmd = new SQLiteCommand("SELECT * FROM Data", con);
+            SQLiteCommand selectServicesCmd = new SQLiteCommand("SELECT * FROM Services", con);
 
             con.Open();
 
-            SQLiteDataAdapter da = new SQLiteDataAdapter(selectCmd);
-            DataTable table = new DataTable();
-            da.Fill(table);
+            SQLiteDataAdapter da = new SQLiteDataAdapter(selectUsersCmd);
+            DataTable table1 = new DataTable();
+            da.Fill(table1);
+
+            SQLiteDataAdapter da2 = new SQLiteDataAdapter(selectDataCmd);
+            DataTable table2 = new DataTable();
+            da.Fill(table2);
+
+            SQLiteDataAdapter da3 = new SQLiteDataAdapter(selectServicesCmd);
+            DataTable table3 = new DataTable();
+            da.Fill(table3);
 
             con.Close();
 
-            for (int index = 0; index < table.Rows.Count; index++)
+            // This gets the student number from the username used to log in from the Users table
+            for (int index = 0; index < table1.Rows.Count; index++)
             {
-                if (table.Rows[index][0].ToString() == user)
-                    studentNumber = table.Rows[index][9].ToString();
+                if (table1.Rows[index][0].ToString() == user)
+                    studentNumber = table1.Rows[index][9].ToString();
             }
+
+            // This uses the student number to get details for labels.
+            string firstName = "", lastName = "", grade = "";
+            for (int index = 0; index < table2.Rows.Count; index++)
+            {
+                if (table2.Rows[index][3].ToString() == studentNumber)
+                {
+                    firstName = table2.Rows[index][1].ToString();
+                    lastName = table2.Rows[index][2].ToString();
+                    grade = table2.Rows[index][4].ToString();
+                }
+            }
+
+            List<int> allHours = new List<int>();
+            for (int index = 0; index < table3.Rows.Count; index++)
+            {
+                if (table3.Rows[index][0].ToString() == studentNumber)
+                {
+                    firstName = table3.Rows[index][1].ToString();
+                    lastName = table3.Rows[index][2].ToString();
+                    grade = table3.Rows[index][4].ToString();
+                }
+            }
+
+            string totalHours = "";
+
+            NameLabel.Text = firstName + " " + lastName;
+            StudentGradeLabel.Text = "Student #" + studentNumber + ", Grade " + grade;
+            // HoursLabel.Text = "Total Hours: " + totalHours;
 
             InitializeComponent();
             ChangeTheme();
@@ -134,6 +174,11 @@ namespace CSA_Tracker_for_FBLA
                 SettingsButton.ForeColor = Color.Black;
                 SignOutButton.ForeColor = Color.Black;
             }
+        }
+
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            login.settings.Show();
         }
     }
 }

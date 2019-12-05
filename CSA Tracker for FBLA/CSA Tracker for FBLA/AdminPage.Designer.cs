@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminPage));
             this.SettingsButton = new System.Windows.Forms.Button();
             this.DGV = new System.Windows.Forms.DataGridView();
@@ -74,13 +75,21 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV.EnableHeadersVisualStyles = false;
             this.DGV.Location = new System.Drawing.Point(12, 183);
             this.DGV.Name = "DGV";
             this.DGV.RowHeadersVisible = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Red;
-            this.DGV.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Red;
+            this.DGV.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.DGV.RowTemplate.Height = 50;
             this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV.Size = new System.Drawing.Size(993, 323);
@@ -114,6 +123,7 @@
             this.EditButton.TabIndex = 14;
             this.EditButton.Text = "✎ Edit";
             this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // DeleteButton
             // 
@@ -123,6 +133,7 @@
             this.DeleteButton.TabIndex = 15;
             this.DeleteButton.Text = "🗑️ Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // FirstNameLabel
             // 
@@ -240,7 +251,7 @@
             // 
             // RowHeightLabel
             // 
-            this.RowHeightLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.RowHeightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RowHeightLabel.AutoSize = true;
             this.RowHeightLabel.Location = new System.Drawing.Point(802, 159);
             this.RowHeightLabel.Name = "RowHeightLabel";
@@ -250,6 +261,7 @@
             // 
             // RowHeightBox
             // 
+            this.RowHeightBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RowHeightBox.Location = new System.Drawing.Point(868, 157);
             this.RowHeightBox.Name = "RowHeightBox";
             this.RowHeightBox.Size = new System.Drawing.Size(137, 20);
@@ -282,7 +294,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1033, 599);
             this.Name = "AdminPage";
-            this.Text = "AdminPage";
+            this.Text = "Administrator Page";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminPage_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LogoBox)).EndInit();

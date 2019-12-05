@@ -14,6 +14,7 @@ namespace CSA_Tracker_for_FBLA
     public partial class AdminPage : Form
     {
         public Login login;
+        ManageUser manageUser;
 
         string connectionString = "Data Source=data.db;Version=3;";
         SQLiteConnection con;
@@ -99,6 +100,15 @@ namespace CSA_Tracker_for_FBLA
                 DoubleClickLabel.ForeColor = Color.Black;
                 RowHeightLabel.ForeColor = Color.Black;
 
+                // DGV
+                DGV.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle();
+                DGV.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(224, 224, 224);
+                DGV.BackgroundColor = Color.FromName("Silver");
+
+                DGV.RowsDefaultCellStyle = new DataGridViewCellStyle();
+
+                DGV.BackgroundColor = Color.FromName("AppWorkspace");
+
                 // Settings and SignOut buttons
                 SettingsButton.BackColor = Color.FromName("Control");
                 SignOutButton.BackColor = Color.FromName("Control");
@@ -108,8 +118,10 @@ namespace CSA_Tracker_for_FBLA
             }
         }
 
-        private void FillDGV()
+        public void FillDGV()
         {
+            DGV.DataSource = null;
+
             SQLiteCommand selectCmd = new SQLiteCommand("SELECT * FROM Data", con);
             con.Open();
 
@@ -123,6 +135,12 @@ namespace CSA_Tracker_for_FBLA
             RowHeightBox.Value = login.settings.adminRowHeight;
 
             DGV.DataSource = table;
+
+            DGV.Columns["FirstName"].HeaderText = "First Name";
+            DGV.Columns["LastName"].HeaderText = "Last Name";
+            DGV.Columns["StudentNumber"].HeaderText = "Student Number";
+
+            DGV.Columns["Id"].Visible = false;
         }
 
         private void SearchBoxes_TextChanged(object sender, EventArgs e)
@@ -156,8 +174,6 @@ namespace CSA_Tracker_for_FBLA
             closeAll = false;
             this.Close();
         }
-
-        
 
         private void AdminPage_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -215,7 +231,72 @@ namespace CSA_Tracker_for_FBLA
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            manageUser = new ManageUser(login, this);
+            manageUser.Show();
+        }
 
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count == 1)
+            {
+                manageUser = new ManageUser(login, DGV.SelectedRows[0], this);
+                try { manageUser.Show(); }
+                catch (ObjectDisposedException) { MessageBox.Show("You cannot edit the final blank row.", "Attempted To Edit Final Row", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            }
+            else if (DGV.SelectedRows.Count > 1)
+            {
+                MessageBox.Show("Please select only one row to edit.", "More Than One Row Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to edit.", "User Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            SQLiteCommand deleteCmd;
+            try
+            {
+                if (DGV.SelectedRows.Count == 1)
+                {
+                    string id = DGV.SelectedRows[0].Cells["Id"].Value.ToString();
+                    deleteCmd = new SQLiteCommand("DELETE FROM Data WHERE Id = " + id + ";", con);
+
+                    con.Open();
+                    deleteCmd.ExecuteNonQuery();
+                    con.Close();
+
+                    FillDGV();
+                    MessageBox.Show("User successfully deleted.", "User Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (DGV.SelectedRows.Count > 1)
+                {
+                    string[] id = new string[DGV.SelectedRows.Count];
+
+                    for (int index = 0; index < id.Length; index++)
+                    {
+                        id[index] = DGV.SelectedRows[index].Cells["Id"].Value.ToString();
+
+                        deleteCmd = new SQLiteCommand("DELETE FROM Data WHERE Id = " + id[index] + ";", con);
+
+                        con.Open();
+                        deleteCmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+
+                    FillDGV();
+                    MessageBox.Show("Users successfully deleted.", "Users Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Please select a row to delete.", "No Users Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("You cannot delete the final blank row.", "Final Row Delete Attempted", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

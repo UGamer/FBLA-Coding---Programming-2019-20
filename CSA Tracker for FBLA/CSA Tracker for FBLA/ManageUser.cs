@@ -14,72 +14,126 @@ namespace CSA_Tracker_for_FBLA
     public partial class ManageUser : Form
     {
         Login login;
+        AdminPage adminPage;
 
-        string user;
-        string studentNumber;
+        DataGridViewRow row;
+        bool saved = false;
+
+        string type;
 
         string connectionString = "Data Source=data.db;Version=3;";
         SQLiteConnection con;
 
-        bool closeAll = true;
-        public ManageUser(Login login, string user)
+        public ManageUser(Login login, AdminPage adminPage)
         {
+            // THIS CONSTRUCTOR IS FOR ADDING USERS
+
             this.login = login;
-            this.user = user;
+            this.adminPage = adminPage;
+            type = "Add";
 
             con = new SQLiteConnection(connectionString);
 
-            SQLiteCommand selectCmd = new SQLiteCommand("SELECT * FROM Users", con);
-
-            con.Open();
-
-            SQLiteDataAdapter da = new SQLiteDataAdapter(selectCmd);
-            DataTable table = new DataTable();
-            da.Fill(table);
-
-            con.Close();
-
-            for (int index = 0; index < table.Rows.Count; index++)
-            {
-                if (table.Rows[index][0].ToString() == user)
-                    studentNumber = table.Rows[index][9].ToString();
-            }
-
             InitializeComponent();
+
+            FirstNameBox.GotFocus += TextBox_GotFocus;
+            LastNameBox.GotFocus += TextBox_GotFocus;
+            StudentNumberBox.GotFocus += TextBox_GotFocus;
+            GradeBox.GotFocus += TextBox_GotFocus;
+
+            FirstNameBox.LostFocus += TextBox_LostFocus;
+            LastNameBox.LostFocus += TextBox_LostFocus;
+            StudentNumberBox.LostFocus += TextBox_LostFocus;
+            GradeBox.LostFocus += TextBox_LostFocus;
+
             ChangeTheme();
         }
 
-        private void ManageUser_FormClosed(object sender, FormClosedEventArgs e)
+        public ManageUser(Login login, DataGridViewRow row, AdminPage adminPage)
         {
-            if (closeAll)
-                login.Close();
+            // THIS CONSTRUCTOR IS FOR EDITING USERS
+            
+            this.login = login;
+            this.adminPage = adminPage;
+            this.row = row;
+            type = "Edit";
+
+            con = new SQLiteConnection(connectionString);
+
+            InitializeComponent();
+
+            
+            FirstNameBox.GotFocus += TextBox_GotFocus;
+            LastNameBox.GotFocus += TextBox_GotFocus;
+            StudentNumberBox.GotFocus += TextBox_GotFocus;
+            GradeBox.GotFocus += TextBox_GotFocus;
+
+            FirstNameBox.LostFocus += TextBox_LostFocus;
+            LastNameBox.LostFocus += TextBox_LostFocus;
+            StudentNumberBox.LostFocus += TextBox_LostFocus;
+            GradeBox.LostFocus += TextBox_LostFocus;
+
+            //0 - 3
+            try
+            {
+                FirstNameBox.Text = row.Cells["FirstName"].Value.ToString();
+                LastNameBox.Text = row.Cells["LastName"].Value.ToString();
+                StudentNumberBox.Text = row.Cells["StudentNumber"].Value.ToString();
+                GradeBox.Text = row.Cells["Grade"].Value.ToString();
+            }
+            catch { this.Close(); }
+
+            FirstNameBox.Font = new Font("Microsoft Sans Serif", 24, FontStyle.Regular);
+            FirstNameBox.ForeColor = Color.Black;
+
+            LastNameBox.Font = new Font("Microsoft Sans Serif", 24, FontStyle.Regular);
+            LastNameBox.ForeColor = Color.Black;
+
+            StudentNumberBox.Font = new Font("Microsoft Sans Serif", 24, FontStyle.Regular);
+            StudentNumberBox.ForeColor = Color.Black;
+
+            GradeBox.Font = new Font("Microsoft Sans Serif", 24, FontStyle.Regular);
+            GradeBox.ForeColor = Color.Black;
+
+            ChangeTheme();
         }
 
-        private void SignOutButton_Click(object sender, EventArgs e)
+        private void TextBox_GotFocus(object sender, EventArgs e)
         {
-            string command = "UPDATE Settings SET Value = @Value WHERE Category = 'Remember';";
+            TextBox textBox = (TextBox) sender;
 
-            SQLiteCommand replaceSettingsCmd = new SQLiteCommand(command, con);
+            if (textBox.Text == "First Name..." || textBox.Text == "Last Name..." || textBox.Text == "Student Number..." || textBox.Text == "Grade...")
+            {
+                textBox.Text = "";
+                textBox.Font = new Font("Microsoft Sans Serif", 24, FontStyle.Regular);
+                textBox.ForeColor = Color.Black;
+            }
+        }
 
-            con.Open();
-            replaceSettingsCmd.Parameters.AddWithValue("@Value", "False");
-            replaceSettingsCmd.ExecuteNonQuery();
-            replaceSettingsCmd.Parameters.RemoveAt(0);
+        private void TextBox_LostFocus(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
 
-            command = "UPDATE Settings SET Value = @Value WHERE Category = 'RememberUser';";
-            replaceSettingsCmd = new SQLiteCommand(command, con);
-            replaceSettingsCmd.Parameters.AddWithValue("@Value", "");
-            replaceSettingsCmd.ExecuteNonQuery();
-            replaceSettingsCmd.Parameters.RemoveAt(0);
-
-            con.Close();
-
-            login.UserBox.Text = "";
-            login.PassBox.Text = "";
-            login.RememberBox.Checked = false;
-            login.Show();
-            closeAll = false;
-            this.Close();
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                switch (textBox.Name)
+                {
+                    case "FirstNameBox":
+                        textBox.Text = "First Name...";
+                        break;
+                    case "LastNameBox":
+                        textBox.Text = "Last Name...";
+                        break;
+                    case "StudentNumberBox":
+                        textBox.Text = "Student Number...";
+                        break;
+                    case "GradeBox":
+                        textBox.Text = "Grade...";
+                        break;
+                }
+                textBox.Font = new Font("Microsoft Sans Serif", 24, FontStyle.Italic);
+                textBox.ForeColor = Color.FromName("ScrollBar");
+            }
         }
 
         public void ChangeTheme()
@@ -87,39 +141,80 @@ namespace CSA_Tracker_for_FBLA
             if (login.settings.theme == "Dark")
             {
                 BackColor = Color.FromArgb(41, 41, 41);
-
-                // Field Labels
-                NameLabel.ForeColor = Color.White;
-                StudentGradeLabel.ForeColor = Color.White;
-                HoursLabel.ForeColor = Color.White;
-
-                // Add, Edit, Remove buttons
-                AddButton.BackColor = Color.FromArgb(64, 64, 64);
-                EditButton.BackColor = Color.FromArgb(64, 64, 64);
-                DeleteButton.BackColor = Color.FromArgb(64, 64, 64);
-
-                AddButton.ForeColor = Color.White;
-                EditButton.ForeColor = Color.White;
-                DeleteButton.ForeColor = Color.White;
+                
+                // Submit Button
+                SubmitButton.BackColor = Color.FromArgb(64, 64, 64);
+                SubmitButton.ForeColor = Color.White;
             }
             else
             {
                 BackColor = Color.FromName("Control");
 
-                // Field Labels
-                NameLabel.ForeColor = Color.Black;
-                StudentGradeLabel.ForeColor = Color.Black;
-                HoursLabel.ForeColor = Color.Black;
-
-                // Add, Edit, Remove buttons
-                AddButton.BackColor = Color.FromName("Control");
-                EditButton.BackColor = Color.FromName("Control");
-                DeleteButton.BackColor = Color.FromName("Control");
-
-                AddButton.ForeColor = Color.Black;
-                EditButton.ForeColor = Color.Black;
-                DeleteButton.ForeColor = Color.Black;
+                // Submit Button
+                SubmitButton.BackColor = Color.FromName("Control");
+                SubmitButton.ForeColor = Color.Black;
             }
+        }
+
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            if (type == "Add")
+            {
+                SQLiteCommand insertCmd = new SQLiteCommand("INSERT INTO Data (FirstName, LastName, StudentNumber, Grade, Hours) VALUES (@FirstName, @LastName, @StudentNumber, @Grade, @Hours)", con);
+
+                //
+                con.Open();
+                insertCmd.Parameters.AddWithValue("@FirstName", FirstNameBox.Text);
+                insertCmd.Parameters.AddWithValue("@LastName", LastNameBox.Text);
+                insertCmd.Parameters.AddWithValue("@StudentNumber", StudentNumberBox.Text);
+                insertCmd.Parameters.AddWithValue("@Grade", GradeBox.Text);
+                insertCmd.Parameters.AddWithValue("@Hours", 0);
+                insertCmd.ExecuteNonQuery();
+
+                while (insertCmd.Parameters.Count != 0)
+                    insertCmd.Parameters.RemoveAt(0);
+
+                con.Close();
+
+                MessageBox.Show("Data successfully added.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //
+
+                adminPage.FillDGV();
+                saved = true;
+                this.Close();
+            }
+            else if (type == "Edit")
+            {
+                string command = "UPDATE Data SET FirstName = @FirstName, LastName = @LastName, StudentNumber = @StudentNumber, Grade = @Grade WHERE Id = " + row.Cells["Id"].Value.ToString() + ";";
+
+                SQLiteCommand replaceSettingsCmd = new SQLiteCommand(command, con);
+
+                con.Open();
+                replaceSettingsCmd.Parameters.AddWithValue("@FirstName", FirstNameBox.Text);
+                replaceSettingsCmd.Parameters.AddWithValue("@LastName", LastNameBox.Text);
+                replaceSettingsCmd.Parameters.AddWithValue("@StudentNumber", StudentNumberBox.Text);
+                replaceSettingsCmd.Parameters.AddWithValue("@Grade", GradeBox.Text);
+                replaceSettingsCmd.ExecuteNonQuery();
+
+                while (replaceSettingsCmd.Parameters.Count != 0)
+                    replaceSettingsCmd.Parameters.RemoveAt(0);
+
+                con.Close();
+
+                MessageBox.Show("Data successfully edited.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                adminPage.FillDGV();
+                saved = true;
+                this.Close();
+            }
+        }
+
+        private void ManageUser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (saved == false)
+                if ((FirstNameBox.Text != "First Name..." && !string.IsNullOrWhiteSpace(FirstNameBox.Text)) || (LastNameBox.Text != "Last Name..." && !string.IsNullOrWhiteSpace(LastNameBox.Text)) || (StudentNumberBox.Text != "Student Number..." && !string.IsNullOrWhiteSpace(StudentNumberBox.Text)) || (GradeBox.Text != "Grade..." && !string.IsNullOrWhiteSpace(GradeBox.Text)))
+                    if (MessageBox.Show("You have data that has not yet been updated or added into the database. Are you sure you want to close?", "Are You Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                        e.Cancel = true;
         }
     }
 }

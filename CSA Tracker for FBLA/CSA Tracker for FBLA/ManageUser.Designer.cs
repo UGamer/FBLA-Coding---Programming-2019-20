@@ -30,73 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageUser));
-            this.NameLabel = new System.Windows.Forms.Label();
-            this.StudentGradeLabel = new System.Windows.Forms.Label();
-            this.HoursLabel = new System.Windows.Forms.Label();
-            this.DeleteButton = new System.Windows.Forms.Button();
-            this.EditButton = new System.Windows.Forms.Button();
-            this.AddButton = new System.Windows.Forms.Button();
             this.DGVContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.PicBox = new System.Windows.Forms.PictureBox();
+            this.FirstNameBox = new System.Windows.Forms.TextBox();
+            this.LastNameBox = new System.Windows.Forms.TextBox();
+            this.StudentNumberBox = new System.Windows.Forms.TextBox();
+            this.GradeBox = new System.Windows.Forms.TextBox();
+            this.SubmitButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PicBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // NameLabel
-            // 
-            this.NameLabel.AutoSize = true;
-            this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameLabel.Location = new System.Drawing.Point(191, 9);
-            this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(220, 55);
-            this.NameLabel.TabIndex = 1;
-            this.NameLabel.Text = "First Last";
-            // 
-            // StudentGradeLabel
-            // 
-            this.StudentGradeLabel.AutoSize = true;
-            this.StudentGradeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StudentGradeLabel.Location = new System.Drawing.Point(194, 64);
-            this.StudentGradeLabel.Name = "StudentGradeLabel";
-            this.StudentGradeLabel.Size = new System.Drawing.Size(261, 37);
-            this.StudentGradeLabel.TabIndex = 2;
-            this.StudentGradeLabel.Text = "Student #, Grade";
-            // 
-            // HoursLabel
-            // 
-            this.HoursLabel.AutoSize = true;
-            this.HoursLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HoursLabel.Location = new System.Drawing.Point(194, 101);
-            this.HoursLabel.Name = "HoursLabel";
-            this.HoursLabel.Size = new System.Drawing.Size(283, 37);
-            this.HoursLabel.TabIndex = 3;
-            this.HoursLabel.Text = "Total Hours: hours";
-            // 
-            // DeleteButton
-            // 
-            this.DeleteButton.Location = new System.Drawing.Point(407, 141);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(97, 36);
-            this.DeleteButton.TabIndex = 18;
-            this.DeleteButton.Text = "🗑️ Delete";
-            this.DeleteButton.UseVisualStyleBackColor = true;
-            // 
-            // EditButton
-            // 
-            this.EditButton.Location = new System.Drawing.Point(304, 141);
-            this.EditButton.Name = "EditButton";
-            this.EditButton.Size = new System.Drawing.Size(97, 36);
-            this.EditButton.TabIndex = 17;
-            this.EditButton.Text = "✎ Edit";
-            this.EditButton.UseVisualStyleBackColor = true;
-            // 
-            // AddButton
-            // 
-            this.AddButton.Location = new System.Drawing.Point(201, 141);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(97, 36);
-            this.AddButton.TabIndex = 16;
-            this.AddButton.Text = "+ Add";
-            this.AddButton.UseVisualStyleBackColor = true;
             // 
             // DGVContextMenu
             // 
@@ -105,28 +47,77 @@
             // 
             // PicBox
             // 
-            this.PicBox.Location = new System.Drawing.Point(13, 13);
+            this.PicBox.Location = new System.Drawing.Point(12, 6);
             this.PicBox.Name = "PicBox";
-            this.PicBox.Size = new System.Drawing.Size(172, 168);
+            this.PicBox.Size = new System.Drawing.Size(94, 94);
             this.PicBox.TabIndex = 0;
             this.PicBox.TabStop = false;
+            // 
+            // FirstNameBox
+            // 
+            this.FirstNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FirstNameBox.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.FirstNameBox.Location = new System.Drawing.Point(112, 6);
+            this.FirstNameBox.Name = "FirstNameBox";
+            this.FirstNameBox.Size = new System.Drawing.Size(278, 44);
+            this.FirstNameBox.TabIndex = 19;
+            this.FirstNameBox.Text = "First Name...";
+            // 
+            // LastNameBox
+            // 
+            this.LastNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastNameBox.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.LastNameBox.Location = new System.Drawing.Point(396, 6);
+            this.LastNameBox.Name = "LastNameBox";
+            this.LastNameBox.Size = new System.Drawing.Size(278, 44);
+            this.LastNameBox.TabIndex = 20;
+            this.LastNameBox.Text = "Last Name...";
+            // 
+            // StudentNumberBox
+            // 
+            this.StudentNumberBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StudentNumberBox.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.StudentNumberBox.Location = new System.Drawing.Point(112, 56);
+            this.StudentNumberBox.Name = "StudentNumberBox";
+            this.StudentNumberBox.Size = new System.Drawing.Size(278, 44);
+            this.StudentNumberBox.TabIndex = 21;
+            this.StudentNumberBox.Text = "Student Number...";
+            // 
+            // GradeBox
+            // 
+            this.GradeBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GradeBox.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.GradeBox.Location = new System.Drawing.Point(396, 56);
+            this.GradeBox.Name = "GradeBox";
+            this.GradeBox.Size = new System.Drawing.Size(278, 44);
+            this.GradeBox.TabIndex = 22;
+            this.GradeBox.Text = "Grade...";
+            // 
+            // SubmitButton
+            // 
+            this.SubmitButton.Location = new System.Drawing.Point(290, 106);
+            this.SubmitButton.Name = "SubmitButton";
+            this.SubmitButton.Size = new System.Drawing.Size(122, 32);
+            this.SubmitButton.TabIndex = 23;
+            this.SubmitButton.Text = "Submit";
+            this.SubmitButton.UseVisualStyleBackColor = true;
+            this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             // 
             // ManageUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 196);
-            this.Controls.Add(this.DeleteButton);
-            this.Controls.Add(this.EditButton);
-            this.Controls.Add(this.AddButton);
-            this.Controls.Add(this.HoursLabel);
-            this.Controls.Add(this.StudentGradeLabel);
-            this.Controls.Add(this.NameLabel);
+            this.ClientSize = new System.Drawing.Size(686, 150);
+            this.Controls.Add(this.SubmitButton);
+            this.Controls.Add(this.GradeBox);
+            this.Controls.Add(this.StudentNumberBox);
+            this.Controls.Add(this.LastNameBox);
+            this.Controls.Add(this.FirstNameBox);
             this.Controls.Add(this.PicBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ManageUser";
-            this.Text = "ManageUser";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ManageUser_FormClosed);
+            this.Text = "Manage User";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ManageUser_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.PicBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -136,12 +127,11 @@
         #endregion
 
         private System.Windows.Forms.PictureBox PicBox;
-        private System.Windows.Forms.Label NameLabel;
-        private System.Windows.Forms.Label StudentGradeLabel;
-        private System.Windows.Forms.Label HoursLabel;
-        private System.Windows.Forms.Button DeleteButton;
-        private System.Windows.Forms.Button EditButton;
-        private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.ContextMenuStrip DGVContextMenu;
+        private System.Windows.Forms.TextBox FirstNameBox;
+        private System.Windows.Forms.TextBox LastNameBox;
+        private System.Windows.Forms.TextBox StudentNumberBox;
+        private System.Windows.Forms.TextBox GradeBox;
+        private System.Windows.Forms.Button SubmitButton;
     }
 }

@@ -104,6 +104,9 @@
             // 
             // DGV
             // 
+            this.DGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV.Location = new System.Drawing.Point(13, 188);
             this.DGV.Name = "DGV";
@@ -145,6 +148,7 @@
             this.SettingsButton.Text = "⚙";
             this.SettingsButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.SettingsButton.UseVisualStyleBackColor = true;
+            this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
             // DetailedUser
             // 
@@ -162,8 +166,9 @@
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.PicBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(533, 308);
             this.Name = "DetailedUser";
-            this.Text = "DetailedUser";
+            this.Text = "First Last\'s Page";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DetailedUser_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBox)).EndInit();
