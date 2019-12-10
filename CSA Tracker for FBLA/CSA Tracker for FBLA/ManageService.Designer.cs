@@ -63,7 +63,7 @@
             // 
             // StartDateBox
             // 
-            this.StartDateBox.CustomFormat = "MMMM, dd, yyyy               hh:mm:ss tt";
+            this.StartDateBox.CustomFormat = "MMMM, dd, yyyy               hh:mm tt";
             this.StartDateBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.StartDateBox.Location = new System.Drawing.Point(104, 34);
             this.StartDateBox.Name = "StartDateBox";
@@ -109,10 +109,11 @@
             this.HoursBox.Name = "HoursBox";
             this.HoursBox.Size = new System.Drawing.Size(248, 20);
             this.HoursBox.TabIndex = 8;
+            this.HoursBox.ValueChanged += new System.EventHandler(this.HoursBox_ValueChanged);
             // 
             // EndDateBox
             // 
-            this.EndDateBox.CustomFormat = "MMMM, dd, yyyy               hh:mm:ss tt";
+            this.EndDateBox.CustomFormat = "MMMM, dd, yyyy               hh:mm tt";
             this.EndDateBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.EndDateBox.Location = new System.Drawing.Point(104, 115);
             this.EndDateBox.Name = "EndDateBox";

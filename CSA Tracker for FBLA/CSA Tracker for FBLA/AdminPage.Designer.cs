@@ -71,6 +71,8 @@
             // 
             // DGV
             // 
+            this.DGV.AllowUserToAddRows = false;
+            this.DGV.AllowUserToDeleteRows = false;
             this.DGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -87,6 +89,7 @@
             this.DGV.EnableHeadersVisualStyles = false;
             this.DGV.Location = new System.Drawing.Point(12, 183);
             this.DGV.Name = "DGV";
+            this.DGV.ReadOnly = true;
             this.DGV.RowHeadersVisible = false;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Red;
             this.DGV.RowsDefaultCellStyle = dataGridViewCellStyle2;

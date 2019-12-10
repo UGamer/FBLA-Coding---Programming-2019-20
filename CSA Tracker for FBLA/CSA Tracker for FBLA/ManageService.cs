@@ -32,6 +32,14 @@ namespace CSA_Tracker_for_FBLA
             ChangeTheme();
 
             StudentNumberBox.Text = studentNumber;
+
+            if (type != "Add")
+            {
+                StartDateBox.Value = Convert.ToDateTime(refer.DGV.SelectedRows[0].Cells["StartDate"].Value.ToString());
+                ActivityBox.Text = refer.DGV.SelectedRows[0].Cells["Activity"].Value.ToString();
+                HoursBox.Value = Convert.ToDecimal(refer.DGV.SelectedRows[0].Cells["Hours"].Value.ToString());
+                EndDateBox.Value = Convert.ToDateTime(refer.DGV.SelectedRows[0].Cells["EndDate"].Value.ToString());
+            }
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)
@@ -39,35 +47,67 @@ namespace CSA_Tracker_for_FBLA
             if (StudentNumberBox.Text != "" && ActivityBox.Text != "" && HoursBox.Value > 0)
             {
                 int studentNumber = Convert.ToInt32(StudentNumberBox.Text);
-                string startDate = StartDateBox.Value.ToString("yyyy-MM-dd HH:mm:ss");
+
+                string startDate = StartDateBox.Value.ToString("yyyy-MM-dd HH:mm");
+                startDate += ":00";
+
                 string activity = ActivityBox.Text;
                 int hours = Convert.ToInt32(HoursBox.Value);
-                string endDate = EndDateBox.Value.ToString("yyyy-MM-dd HH:mm:ss");
 
-                SQLiteCommand insertCmd = new SQLiteCommand("INSERT INTO Services (StudentNumber, StartDate, Activity, Hours, EndDate) VALUES (@StudentNumber, @StartDate, @Activity, @Hours, @EndDate)", con);
+                string endDate = EndDateBox.Value.ToString("yyyy-MM-dd HH:mm");
+                endDate += ":00";
 
-                //
-                con.Open();
-                insertCmd.Parameters.AddWithValue("@StudentNumber", studentNumber);
-                insertCmd.Parameters.AddWithValue("@StartDate", startDate);
-                insertCmd.Parameters.AddWithValue("@Activity", activity);
-                insertCmd.Parameters.AddWithValue("@Hours", hours);
-                insertCmd.Parameters.AddWithValue("@EndDate", endDate);
-                insertCmd.ExecuteNonQuery();
 
-                while (insertCmd.Parameters.Count != 0)
-                    insertCmd.Parameters.RemoveAt(0);
+                if (type == "Add")
+                {
+                    SQLiteCommand insertCmd = new SQLiteCommand("INSERT INTO Services (StudentNumber, StartDate, Activity, Hours, EndDate) VALUES (@StudentNumber, @StartDate, @Activity, @Hours, @EndDate)", con);
 
-                con.Close();
+                    con.Open();
+                    insertCmd.Parameters.AddWithValue("@StudentNumber", studentNumber);
+                    insertCmd.Parameters.AddWithValue("@StartDate", startDate);
+                    insertCmd.Parameters.AddWithValue("@Activity", activity);
+                    insertCmd.Parameters.AddWithValue("@Hours", hours);
+                    insertCmd.Parameters.AddWithValue("@EndDate", endDate);
+                    insertCmd.ExecuteNonQuery();
 
-                MessageBox.Show("Service successfully added.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    while (insertCmd.Parameters.Count != 0)
+                        insertCmd.Parameters.RemoveAt(0);
+
+                    con.Close();
+                }
+                else
+                {
+                    string command = "UPDATE Services SET StudentNumber = @StudentNumber, StartDate = @StartDate, Activity = @Activity, Hours = @Hours, EndDate = @EndDate WHERE Id = " + type + ";";
+
+                    SQLiteCommand replaceCmd = new SQLiteCommand(command, con);
+
+                    con.Open();
+                    replaceCmd.Parameters.AddWithValue("@StudentNumber", studentNumber);
+                    replaceCmd.Parameters.AddWithValue("@StartDate", startDate);
+                    replaceCmd.Parameters.AddWithValue("@Activity", activity);
+                    replaceCmd.Parameters.AddWithValue("@Hours", hours);
+                    replaceCmd.Parameters.AddWithValue("@EndDate", endDate);
+                    replaceCmd.ExecuteNonQuery();
+
+                    while (replaceCmd.Parameters.Count != 0)
+                        replaceCmd.Parameters.RemoveAt(0);
+
+                    con.Close();
+                }
+
+                MessageBox.Show("Service operation successful.", "Service Operation Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 refer.FillDGV();
                 this.Close();
             }
             else
             {
-
+                if (StudentNumberBox.Text == "")
+                    MessageBox.Show("Student number was not given.", "No Student Number Given", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ActivityBox.Text == "")
+                    MessageBox.Show("You must give a brief description of the activity.", "No Activity Given", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (HoursBox.Value == 0)
+                    MessageBox.Show("You cannot submit a service with 0 hours.", "No Hours Given", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -107,6 +147,10 @@ namespace CSA_Tracker_for_FBLA
             }
         }
 
-        
+        private void HoursBox_ValueChanged(object sender, EventArgs e)
+        {
+            EndDateBox.Value = StartDateBox.Value;
+            EndDateBox.Value = EndDateBox.Value.AddHours(Convert.ToDouble(HoursBox.Value));
+        }
     }
 }

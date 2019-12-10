@@ -83,6 +83,7 @@
             this.DeleteButton.TabIndex = 18;
             this.DeleteButton.Text = "🗑️ Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // EditButton
             // 
@@ -92,6 +93,7 @@
             this.EditButton.TabIndex = 17;
             this.EditButton.Text = "✎ Edit";
             this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
             // AddButton
             // 
@@ -105,6 +107,8 @@
             // 
             // DGV
             // 
+            this.DGV.AllowUserToAddRows = false;
+            this.DGV.AllowUserToDeleteRows = false;
             this.DGV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -113,7 +117,9 @@
             this.DGV.EnableHeadersVisualStyles = false;
             this.DGV.Location = new System.Drawing.Point(13, 188);
             this.DGV.Name = "DGV";
+            this.DGV.ReadOnly = true;
             this.DGV.RowHeadersVisible = false;
+            this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV.Size = new System.Drawing.Size(775, 250);
             this.DGV.TabIndex = 19;
             // 
@@ -122,6 +128,7 @@
             this.PicBox.Location = new System.Drawing.Point(13, 13);
             this.PicBox.Name = "PicBox";
             this.PicBox.Size = new System.Drawing.Size(172, 168);
+            this.PicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PicBox.TabIndex = 0;
             this.PicBox.TabStop = false;
             // 
@@ -190,9 +197,9 @@
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button EditButton;
         private System.Windows.Forms.Button AddButton;
-        private System.Windows.Forms.DataGridView DGV;
         private System.Windows.Forms.ContextMenuStrip DGVContextMenu;
         private System.Windows.Forms.Button SignOutButton;
         private System.Windows.Forms.Button SettingsButton;
+        public System.Windows.Forms.DataGridView DGV;
     }
 }

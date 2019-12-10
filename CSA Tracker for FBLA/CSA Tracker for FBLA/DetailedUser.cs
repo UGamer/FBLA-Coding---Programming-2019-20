@@ -53,7 +53,7 @@ namespace CSA_Tracker_for_FBLA
             SQLiteDataAdapter da3 = new SQLiteDataAdapter(selectServicesCmd);
             DataTable table3 = new DataTable();
             da3.Fill(table3);
-            
+
             con.Close();
 
             // This gets the student number from the username used to log in from the Users table
@@ -89,6 +89,12 @@ namespace CSA_Tracker_for_FBLA
 
             this.Text = firstName + " " + lastName + "'s Page";
 
+            try { PicBox.Image = Image.FromFile(@"img\" + studentNumber + ".jpg"); }
+            catch { try { PicBox.Image = Image.FromFile(@"img\" + studentNumber + ".png"); }
+            catch { try { PicBox.Image = Image.FromFile(@"img\" + studentNumber + ".jpeg"); }
+            catch { try { PicBox.Image = Image.FromFile(@"img\" + studentNumber + ".gif"); }
+            catch { PicBox.Image = Image.FromFile(@"img\unknown.png"); } } } }
+             
             NameLabel.Text = firstName + " " + lastName;
             StudentGradeLabel.Text = "Student #" + studentNumber + ", "  + grade + "th Grade";
             HoursLabel.Text = "Total Hours: " + hours;
@@ -143,12 +149,11 @@ namespace CSA_Tracker_for_FBLA
 
             DGV.DataSource = table;
 
+            DGV.Columns["Id"].Visible = false;
             DGV.Columns["StudentNumber"].Visible = false;
             DGV.Columns["StartDate"].HeaderText = "Start Date";
             DGV.Columns["EndDate"].HeaderText = "End Date";
         }
-
-        
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
@@ -159,6 +164,63 @@ namespace CSA_Tracker_for_FBLA
         {
             manageService = new ManageService(login, this, studentNumber, "Add");
             manageService.Show();
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count == 1)
+            {
+                manageService = new ManageService(login, this, studentNumber, DGV.SelectedRows[0].Cells[0].Value.ToString());
+                manageService.Show();
+            }
+            else if (DGV.SelectedRows.Count > 1)
+            {
+                MessageBox.Show("Please select only one row to edit.", "More Than One Row Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to edit.", "User Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            SQLiteCommand deleteCmd;
+
+            if (DGV.SelectedRows.Count == 1)
+            {
+                string id = DGV.SelectedRows[0].Cells["Id"].Value.ToString();
+                deleteCmd = new SQLiteCommand("DELETE FROM Services WHERE Id = " + id + ";", con);
+
+                con.Open();
+                deleteCmd.ExecuteNonQuery();
+                con.Close();
+
+                FillDGV();
+                MessageBox.Show("Service successfully deleted.", "Service Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (DGV.SelectedRows.Count > 1)
+            {
+                string[] id = new string[DGV.SelectedRows.Count];
+
+                for (int index = 0; index < id.Length; index++)
+                {
+                    id[index] = DGV.SelectedRows[index].Cells["Id"].Value.ToString();
+
+                    deleteCmd = new SQLiteCommand("DELETE FROM Services WHERE Id = " + id[index] + ";", con);
+
+                    con.Open();
+                    deleteCmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                FillDGV();
+                MessageBox.Show("Service successfully deleted.", "Services Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to delete.", "No Service Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         public void ChangeTheme()
