@@ -116,7 +116,7 @@ namespace CSA_Tracker_for_FBLA
 
             if (UserBox.Text == "Admin")
             {
-                if (PassBox.Text == "CommunityServiceAwards")
+                if (PassBox.Text == "CSA")
                     SignIn("Admin");
             }
             else
