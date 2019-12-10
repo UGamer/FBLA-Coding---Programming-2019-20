@@ -20,8 +20,12 @@ namespace CSA_Tracker_for_FBLA
 
         string connectionString = "Data Source=data.db;Version=3;";
         SQLiteConnection con;
+        SQLiteCommand selectServicesCmd;
 
         bool closeAll = true;
+
+        ManageService manageService;
+
         public DetailedUser(Login login, string user)
         {
             this.login = login;
@@ -31,7 +35,7 @@ namespace CSA_Tracker_for_FBLA
 
             SQLiteCommand selectUsersCmd = new SQLiteCommand("SELECT * FROM Users", con);
             SQLiteCommand selectDataCmd = new SQLiteCommand("SELECT * FROM Data", con);
-            SQLiteCommand selectServicesCmd = new SQLiteCommand("SELECT * FROM Services", con);
+            selectServicesCmd = new SQLiteCommand("SELECT * FROM Services", con);
 
             con.Open();
 
@@ -89,11 +93,7 @@ namespace CSA_Tracker_for_FBLA
             StudentGradeLabel.Text = "Student #" + studentNumber + ", "  + grade + "th Grade";
             HoursLabel.Text = "Total Hours: " + hours;
 
-            DGV.DataSource = table3;
-
-            DGV.Columns["StudentNumber"].Visible = false;
-            DGV.Columns["StartDate"].HeaderText = "Start Date";
-            DGV.Columns["EndDate"].HeaderText = "End Date";
+            FillDGV();
 
             ChangeTheme();
         }
@@ -129,6 +129,36 @@ namespace CSA_Tracker_for_FBLA
             login.Show();
             closeAll = false;
             this.Close();
+        }
+
+        public void FillDGV()
+        {
+            con.Open();
+
+            SQLiteDataAdapter da = new SQLiteDataAdapter(selectServicesCmd);
+            DataTable table = new DataTable();
+            da.Fill(table);
+
+            con.Close();
+
+            DGV.DataSource = table;
+
+            DGV.Columns["StudentNumber"].Visible = false;
+            DGV.Columns["StartDate"].HeaderText = "Start Date";
+            DGV.Columns["EndDate"].HeaderText = "End Date";
+        }
+
+        
+
+        private void SettingsButton_Click(object sender, EventArgs e)
+        {
+            login.settings.Show();
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            manageService = new ManageService(login, this, studentNumber, "Add");
+            manageService.Show();
         }
 
         public void ChangeTheme()
@@ -201,11 +231,6 @@ namespace CSA_Tracker_for_FBLA
                 SettingsButton.ForeColor = Color.Black;
                 SignOutButton.ForeColor = Color.Black;
             }
-        }
-
-        private void SettingsButton_Click(object sender, EventArgs e)
-        {
-            login.settings.Show();
         }
     }
 }
