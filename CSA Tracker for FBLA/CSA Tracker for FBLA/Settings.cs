@@ -63,6 +63,12 @@ namespace CSA_Tracker_for_FBLA
 
         public void ChangeTheme()
         {
+            try { login.adminPage.ChangeTheme(); } catch { }
+            try { login.detailedUser.ChangeTheme(); } catch { }
+            login.ChangeTheme();
+            try { login.detailedUser.manageService.ChangeTheme(); } catch { }
+            try { login.adminPage.manageUser.ChangeTheme(); } catch { }
+
             if (theme == "Dark")
             {
                 BackColor = Color.FromArgb(41, 41, 41);
@@ -76,12 +82,10 @@ namespace CSA_Tracker_for_FBLA
                 ThemeButton.Text = "Light";
                 ThemeButton.ForeColor = Color.Black;
                 ThemeButton.BackColor = Color.FromName("Control");
-                
             }
 
-            login.ChangeTheme();
-            try { login.adminPage.ChangeTheme(); } catch { }
-            try { login.detailedUser.ChangeTheme(); } catch { }
+            try { login.signUp.ChangeTheme(); } catch { }
+
         }
 
         public void ChangeRememberValues()

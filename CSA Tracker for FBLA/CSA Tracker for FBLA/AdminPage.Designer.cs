@@ -97,6 +97,7 @@
             this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV.Size = new System.Drawing.Size(993, 323);
             this.DGV.TabIndex = 11;
+            this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             this.DGV.RowHeightChanged += new System.Windows.Forms.DataGridViewRowEventHandler(this.DGV_RowHeightChanged);
             // 
             // DoubleClickLabel

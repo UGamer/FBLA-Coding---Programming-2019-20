@@ -14,7 +14,8 @@ namespace CSA_Tracker_for_FBLA
     public partial class AdminPage : Form
     {
         public Login login;
-        ManageUser manageUser;
+        public ManageUser manageUser;
+        public DetailedUser detailedUser;
 
         string connectionString = "Data Source=data.db;Version=3;";
         SQLiteConnection con;
@@ -141,6 +142,7 @@ namespace CSA_Tracker_for_FBLA
             DGV.Columns["StudentNumber"].HeaderText = "Student Number";
 
             DGV.Columns["Id"].Visible = false;
+            DGV.Columns["Username"].Visible = false;
         }
 
         private void SearchBoxes_TextChanged(object sender, EventArgs e)
@@ -297,6 +299,12 @@ namespace CSA_Tracker_for_FBLA
             {
                 MessageBox.Show("You cannot delete the final blank row.", "Final Row Delete Attempted", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            detailedUser = new DetailedUser(login, DGV.Rows[e.RowIndex].Cells["Username"].Value.ToString());
+            detailedUser.Show();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace CSA_Tracker_for_FBLA
     public partial class Login : Form
     {
         public Settings settings;
+        public SignUp signUp;
         public AdminPage adminPage;
         public DetailedUser detailedUser;
 
@@ -56,10 +57,10 @@ namespace CSA_Tracker_for_FBLA
             {
                 BackColor = Color.FromArgb(41, 41, 41);
 
-                label1.ForeColor = Color.White;
+                PleaseSignInLabel.ForeColor = Color.White;
 
-                label2.ForeColor = Color.White;
-                label3.ForeColor = Color.White;
+                UserLabel.ForeColor = Color.White;
+                PassLabel.ForeColor = Color.White;
 
                 RememberBox.ForeColor = Color.White;
 
@@ -75,10 +76,10 @@ namespace CSA_Tracker_for_FBLA
             {
                 BackColor = Color.FromName("Control");
 
-                label1.ForeColor = Color.Black;
+                PleaseSignInLabel.ForeColor = Color.Black;
 
-                label2.ForeColor = Color.Black;
-                label3.ForeColor = Color.Black;
+                UserLabel.ForeColor = Color.Black;
+                PassLabel.ForeColor = Color.Black;
 
                 RememberBox.ForeColor = Color.Black;
 
@@ -95,6 +96,13 @@ namespace CSA_Tracker_for_FBLA
         private void SettingsButton_Click(object sender, EventArgs e)
         {
             settings.Show();
+        }
+
+        private void SignUpButton_Click(object sender, EventArgs e)
+        {
+            signUp = new SignUp(this);
+            signUp.Show();
+            this.Hide();
         }
 
         private void SignInButton_Click(object sender, EventArgs e)

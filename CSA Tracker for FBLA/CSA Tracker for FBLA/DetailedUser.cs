@@ -24,7 +24,7 @@ namespace CSA_Tracker_for_FBLA
 
         bool closeAll = true;
 
-        ManageService manageService;
+        public ManageService manageService;
 
         public DetailedUser(Login login, string user)
         {
@@ -80,9 +80,7 @@ namespace CSA_Tracker_for_FBLA
             for (int index = 0; index < table3.Rows.Count; index++)
             {
                 if (table3.Rows[index][0].ToString() == studentNumber)
-                {
                     hours += Convert.ToInt32(table3.Rows[index]["Hours"].ToString());
-                }
             }
 
             InitializeComponent();
@@ -97,7 +95,14 @@ namespace CSA_Tracker_for_FBLA
              
             NameLabel.Text = firstName + " " + lastName;
             StudentGradeLabel.Text = "Student #" + studentNumber + ", "  + grade + "th Grade";
-            HoursLabel.Text = "Total Hours: " + hours;
+            HoursLabel.Text = "Total Hours: " + hours + ", CSA ";
+
+            if (hours >= 0 && hours < 50)
+                HoursLabel.Text += "Community";
+            else if (hours >= 50 && hours < 200)
+                HoursLabel.Text += "Service";
+            else if (hours >= 201)
+                HoursLabel.Text += "Achievement";
 
             FillDGV();
 

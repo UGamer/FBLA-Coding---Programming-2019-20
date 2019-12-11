@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
-            this.label1 = new System.Windows.Forms.Label();
+            this.PleaseSignInLabel = new System.Windows.Forms.Label();
             this.UserBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.UserLabel = new System.Windows.Forms.Label();
+            this.PassLabel = new System.Windows.Forms.Label();
             this.PassBox = new System.Windows.Forms.TextBox();
             this.SignInButton = new System.Windows.Forms.Button();
             this.SignUpButton = new System.Windows.Forms.Button();
@@ -43,17 +43,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.LogoBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // PleaseSignInLabel
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(80, 174);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 24);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Please sign in.";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.PleaseSignInLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.PleaseSignInLabel.AutoSize = true;
+            this.PleaseSignInLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PleaseSignInLabel.Location = new System.Drawing.Point(80, 174);
+            this.PleaseSignInLabel.Name = "PleaseSignInLabel";
+            this.PleaseSignInLabel.Size = new System.Drawing.Size(132, 24);
+            this.PleaseSignInLabel.TabIndex = 1;
+            this.PleaseSignInLabel.Text = "Please sign in.";
+            this.PleaseSignInLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // UserBox
             // 
@@ -66,29 +66,29 @@
             this.UserBox.TabIndex = 2;
             this.UserBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UserBox_KeyDown);
             // 
-            // label2
+            // UserLabel
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.UserLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 214);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "User:";
+            this.UserLabel.AutoSize = true;
+            this.UserLabel.Location = new System.Drawing.Point(19, 214);
+            this.UserLabel.Name = "UserLabel";
+            this.UserLabel.Size = new System.Drawing.Size(32, 13);
+            this.UserLabel.TabIndex = 3;
+            this.UserLabel.Text = "User:";
             // 
-            // label3
+            // PassLabel
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.PassLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 240);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Password:";
+            this.PassLabel.AutoSize = true;
+            this.PassLabel.Location = new System.Drawing.Point(19, 240);
+            this.PassLabel.Name = "PassLabel";
+            this.PassLabel.Size = new System.Drawing.Size(56, 13);
+            this.PassLabel.TabIndex = 5;
+            this.PassLabel.Text = "Password:";
             // 
             // PassBox
             // 
@@ -121,6 +121,7 @@
             this.SignUpButton.TabIndex = 7;
             this.SignUpButton.Text = "Sign Up";
             this.SignUpButton.UseVisualStyleBackColor = true;
+            this.SignUpButton.Click += new System.EventHandler(this.SignUpButton_Click);
             // 
             // ForgotLabel
             // 
@@ -184,11 +185,11 @@
             this.Controls.Add(this.ForgotLabel);
             this.Controls.Add(this.SignUpButton);
             this.Controls.Add(this.SignInButton);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.PassLabel);
             this.Controls.Add(this.PassBox);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.UserLabel);
             this.Controls.Add(this.UserBox);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.PleaseSignInLabel);
             this.Controls.Add(this.LogoBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
@@ -202,9 +203,9 @@
         #endregion
 
         private System.Windows.Forms.PictureBox LogoBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label PleaseSignInLabel;
+        private System.Windows.Forms.Label UserLabel;
+        private System.Windows.Forms.Label PassLabel;
         private System.Windows.Forms.Button SignInButton;
         private System.Windows.Forms.Button SignUpButton;
         private System.Windows.Forms.LinkLabel ForgotLabel;
