@@ -80,7 +80,7 @@ namespace CSA_Tracker_for_FBLA
             int hours = 0;
             for (int index = 0; index < table3.Rows.Count; index++)
             {
-                if (table3.Rows[index][0].ToString() == studentNumber)
+                if (table3.Rows[index]["StudentNumber"].ToString() == studentNumber)
                     hours += Convert.ToInt32(table3.Rows[index]["Hours"].ToString());
             }
 

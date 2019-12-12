@@ -308,5 +308,11 @@ namespace CSA_Tracker_for_FBLA
             detailedUser = new DetailedUser(login, DGV.Rows[e.RowIndex].Cells["Username"].Value.ToString());
             detailedUser.Show();
         }
+
+        private void ReportButton_Click(object sender, EventArgs e)
+        {
+            report = new Report(this);
+            report.Show();
+        }
     }
 }

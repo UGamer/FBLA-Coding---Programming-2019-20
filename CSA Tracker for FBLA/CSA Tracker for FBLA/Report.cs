@@ -27,6 +27,24 @@ namespace CSA_Tracker_for_FBLA
             type = detailedUser.studentNumber;
 
             InitializeComponent();
+
+            NumberLabel.Visible = false;
+            NumberBox.Visible = false;
+            NameLabel.Visible = false;
+            NameBox.Visible = false;
+
+            ChangeTheme();
+            FillDGV();
+        }
+
+        public Report(AdminPage adminPage)
+        {
+            // Program starts on displaying weekly.
+
+            this.adminPage = adminPage;
+            type = "Admin";
+
+            InitializeComponent();
             ChangeTheme();
             FillDGV();
         }
@@ -34,76 +52,230 @@ namespace CSA_Tracker_for_FBLA
         private void FillDGV()
         {
             dataTable = new DataTable();
-            dataTable = detailedUser.DGV.DataSource as DataTable;
-
             DataTable newTable = new DataTable();
-
-            newTable.Columns.Add("Start of Week", typeof(DateTime));
-            newTable.Columns.Add("Hours");
-            newTable.Columns.Add("CSA Category");
-            newTable.Columns.Add("End of Week", typeof(DateTime));
-
             DataRow newRow;
 
-            for (int index = 0; index < dataTable.Rows.Count; index++)
+            // User & Weekly
+            if (type != "Admin" && WeekMonthButton.Text == "Monthly")
             {
-                DateTime currentDate = Convert.ToDateTime(dataTable.Rows[index]["StartDate"].ToString());
-                if (currentDate.DayOfWeek.ToString() != "Monday")
-                    currentDate.AddDays(-1);
+                dataTable = detailedUser.DGV.DataSource as DataTable;
 
-                bool weekStarted = false;
-                int savedIndex = -1;
-                for (int index2 = 0; index2 < newTable.Rows.Count; index2++)
+                newTable.Columns.Add("Start of Week", typeof(DateTime));
+                newTable.Columns.Add("Hours");
+                newTable.Columns.Add("Total Hours");
+                newTable.Columns.Add("CSA Category");
+                newTable.Columns.Add("End of Week", typeof(DateTime));
+
+                for (int index = 0; index < dataTable.Rows.Count; index++)
                 {
-                    if (newTable.Rows[index2]["Start of Week"].ToString() == currentDate.ToString())
+                    DateTime currentDate = Convert.ToDateTime(dataTable.Rows[index]["StartDate"].ToString());
+                    currentDate = currentDate.AddHours(currentDate.Hour * -1);
+                    currentDate = currentDate.AddMinutes(currentDate.Minute * -1);
+                    currentDate = currentDate.AddSeconds(currentDate.Second * -1);
+
+                    while (currentDate.DayOfWeek != DayOfWeek.Monday)
+                        currentDate = currentDate.AddDays(-1);
+
+                    bool weekStarted = false;
+                    int savedIndex = -1;
+                    for (int index2 = 0; index2 < newTable.Rows.Count; index2++)
                     {
-                        weekStarted = true;
-                        savedIndex = index2;
+                        if (newTable.Rows[index2]["Start of Week"].ToString() == currentDate.ToString())
+                        {
+                            weekStarted = true;
+                            savedIndex = index2;
+                        }
                     }
+
+                    if (weekStarted)
+                    {
+                        int hours = Convert.ToInt32(newTable.Rows[savedIndex]["Hours"]);
+
+                        newTable.Rows[savedIndex]["Hours"] = hours + Convert.ToInt32(dataTable.Rows[index]["Hours"]);
+                    }
+                    else
+                    {
+                        newRow = newTable.NewRow();
+
+                        newRow["Start of Week"] = currentDate;
+
+                        int hours = Convert.ToInt32(dataTable.Rows[index]["Hours"]);
+
+                        newRow["Hours"] = hours;
+
+                        newRow["End of Week"] = currentDate.AddDays(6);
+
+                        newTable.Rows.Add(newRow);
+                    }
+
                 }
 
-                if (weekStarted)
+                int totalHours = 0;
+                for (int index = 0; index < newTable.Rows.Count; index++)
                 {
-                    int hours = Convert.ToInt32(newTable.Rows[savedIndex]["Hours"]);
+                    totalHours += Convert.ToInt32(newTable.Rows[index]["Hours"]);
+                    newTable.Rows[index]["Total Hours"] = totalHours;
+                }
 
-                    newTable.Rows[savedIndex]["Hours"] = hours + Convert.ToInt32(dataTable.Rows[index]);
+                for (int index = 0; index < newTable.Rows.Count; index++)
+                {
+                    int hours = Convert.ToInt32(newTable.Rows[index]["Total Hours"]);
 
                     if (hours >= 0 && hours < 50)
-                        newTable.Rows[savedIndex]["CSA Category"] = "CSA Community";
+                        newTable.Rows[index]["CSA Category"] = "CSA Community";
                     else if (hours >= 50 && hours < 200)
-                        newTable.Rows[savedIndex]["CSA Category"] = "CSA Service";
+                        newTable.Rows[index]["CSA Category"] = "CSA Service";
                     else if (hours >= 201)
-                        newTable.Rows[savedIndex]["CSA Category"] = "CSA Achievement";
+                        newTable.Rows[index]["CSA Category"] = "CSA Achievement";
                 }
-                else
+            }
+            // User & Monthly
+            if (type != "Admin" && WeekMonthButton.Text == "Weekly")
+            {
+                dataTable = detailedUser.DGV.DataSource as DataTable;
+
+                newTable.Columns.Add("Month & Year");
+                newTable.Columns.Add("Hours");
+                newTable.Columns.Add("Total Hours");
+                newTable.Columns.Add("CSA Category");
+
+                for (int index = 0; index < dataTable.Rows.Count; index++)
                 {
-                    newRow = newTable.NewRow();
+                    DateTime currentDate = Convert.ToDateTime(dataTable.Rows[index]["StartDate"].ToString());
+                    string dateString = currentDate.ToString("MM-yyyy");
 
-                    newRow["Start of Week"] = currentDate;
-                    newRow["Hours"] = Convert.ToInt32(dataTable.Rows[index]);
+                    bool monthStarted = false;
+                    int savedIndex = -1;
+                    for (int index2 = 0; index2 < newTable.Rows.Count; index2++)
+                    {
+                        if (newTable.Rows[index2]["Month & Year"].ToString() == dateString)
+                        {
+                            monthStarted = true;
+                            savedIndex = index2;
+                        }
+                    }
 
-                    int hours = Convert.ToInt32(dataTable.Rows[index]);
+                    if (monthStarted)
+                    {
+                        int hours = Convert.ToInt32(newTable.Rows[savedIndex]["Hours"]);
+
+                        newTable.Rows[savedIndex]["Hours"] = hours + Convert.ToInt32(dataTable.Rows[index]["Hours"]);
+                    }
+                    else
+                    {
+                        newRow = newTable.NewRow();
+
+                        newRow["Month & Year"] = dateString;
+
+                        int hours = Convert.ToInt32(dataTable.Rows[index]["Hours"]);
+
+                        newRow["Hours"] = hours;
+
+                        newTable.Rows.Add(newRow);
+                    }
+
+                }
+
+                int totalHours = 0;
+                for (int index = 0; index < newTable.Rows.Count; index++)
+                {
+                    totalHours += Convert.ToInt32(newTable.Rows[index]["Hours"]);
+                    newTable.Rows[index]["Total Hours"] = totalHours;
+                }
+
+                for (int index = 0; index < newTable.Rows.Count; index++)
+                {
+                    int hours = Convert.ToInt32(newTable.Rows[index]["Total Hours"]);
 
                     if (hours >= 0 && hours < 50)
-                        newRow["CSA Category"] = "CSA Community";
+                        newTable.Rows[index]["CSA Category"] = "CSA Community";
                     else if (hours >= 50 && hours < 200)
-                        newRow["CSA Category"] = "CSA Service";
+                        newTable.Rows[index]["CSA Category"] = "CSA Service";
                     else if (hours >= 201)
-                        newRow["CSA Category"] = "CSA Achievement";
+                        newTable.Rows[index]["CSA Category"] = "CSA Achievement";
+                }
+            }
+            // Admin & Weekly
+            if (type == "Admin" && WeekMonthButton.Text == "Monthly")
+            {
+                dataTable = adminPage.DGV.DataSource as DataTable;
 
-                    newRow["End of Week"] = currentDate.AddDays(6);
+                newTable.Columns.Add("Start of Week", typeof(DateTime));
+                newTable.Columns.Add("Student Number");
+                newTable.Columns.Add("Full Name");
+                newTable.Columns.Add("Hours");
+                newTable.Columns.Add("Total Hours");
+                newTable.Columns.Add("CSA Category");
+                newTable.Columns.Add("End of Week", typeof(DateTime));
 
-                    newTable.Rows.Add(newRow);
+                for (int index = 0; index < dataTable.Rows.Count; index++)
+                {
+                    string currentNumber = dataTable.Rows[index]["StudentNumber"].ToString();
+
+                    DateTime currentDate = Convert.ToDateTime(dataTable.Rows[index]["StartDate"].ToString());
+                    currentDate = currentDate.AddHours(currentDate.Hour * -1);
+                    currentDate = currentDate.AddMinutes(currentDate.Minute * -1);
+                    currentDate = currentDate.AddSeconds(currentDate.Second * -1);
+
+                    while (currentDate.DayOfWeek != DayOfWeek.Monday)
+                        currentDate = currentDate.AddDays(-1);
+
+                    bool weekStarted = false;
+                    int savedIndex = -1;
+                    for (int index2 = 0; index2 < newTable.Rows.Count; index2++)
+                    {
+                        if (newTable.Rows[index2]["Start of Week"].ToString() == currentDate.ToString() && newTable.Rows[index2]["Student Number"].ToString() == currentNumber )
+                        {
+                            weekStarted = true;
+                            savedIndex = index2;
+                        }
+                    }
+
+                    if (weekStarted)
+                    {
+                        int hours = Convert.ToInt32(newTable.Rows[savedIndex]["Hours"]);
+
+                        newTable.Rows[savedIndex]["Hours"] = hours + Convert.ToInt32(dataTable.Rows[index]["Hours"]);
+                    }
+                    else
+                    {
+                        newRow = newTable.NewRow();
+
+                        newRow["Start of Week"] = currentDate;
+
+                        int hours = Convert.ToInt32(dataTable.Rows[index]["Hours"]);
+
+                        newRow["Hours"] = hours;
+
+                        newRow["End of Week"] = currentDate.AddDays(6);
+
+                        newTable.Rows.Add(newRow);
+                    }
+
                 }
 
+                int totalHours = 0;
+                for (int index = 0; index < newTable.Rows.Count; index++)
+                {
+                    totalHours += Convert.ToInt32(newTable.Rows[index]["Hours"]);
+                    newTable.Rows[index]["Total Hours"] = totalHours;
+                }
+
+                for (int index = 0; index < newTable.Rows.Count; index++)
+                {
+                    int hours = Convert.ToInt32(newTable.Rows[index]["Total Hours"]);
+
+                    if (hours >= 0 && hours < 50)
+                        newTable.Rows[index]["CSA Category"] = "CSA Community";
+                    else if (hours >= 50 && hours < 200)
+                        newTable.Rows[index]["CSA Category"] = "CSA Service";
+                    else if (hours >= 201)
+                        newTable.Rows[index]["CSA Category"] = "CSA Achievement";
+                }
             }
 
             DGV.DataSource = newTable;
-
-            DGV.Columns["Id"].Visible = false;
-            DGV.Columns["StudentNumber"].Visible = false;
-            DGV.Columns["StartDate"].HeaderText = "Start Date";
-            DGV.Columns["EndDate"].HeaderText = "End Date";
+            DGV.Sort(DGV.Columns[0], ListSortDirection.Ascending);
         }
 
         private void WeekMonthButton_Click(object sender, EventArgs e)
@@ -113,28 +285,14 @@ namespace CSA_Tracker_for_FBLA
                 // THIS IS CHANGING FROM MONTHLY TO WEEKLY
                 WeekMonthButton.Text = "Monthly";
                 CurrentDisplayLabel.Text = "Currently displaying weekly reports.";
-                if (type == "Admin")
-                {
-                    
-                }
-                else
-                {
-
-                }
+                FillDGV();
             }
             else
             {
                 // THIS IS CHANGING FROM WEEKLY TO MONTHLY
                 WeekMonthButton.Text = "Weekly";
                 CurrentDisplayLabel.Text = "Currently displaying monthly reports.";
-                if (type == "Admin")
-                {
-
-                }
-                else
-                {
-
-                }
+                FillDGV();
             }
         }
 
