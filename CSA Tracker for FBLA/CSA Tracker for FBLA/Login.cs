@@ -177,7 +177,7 @@ namespace CSA_Tracker_for_FBLA
             }
             else
             {
-                detailedUser = new DetailedUser(this, user);
+                detailedUser = new DetailedUser(this, user, false);
                 detailedUser.Show();
             }
 

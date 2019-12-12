@@ -305,7 +305,7 @@ namespace CSA_Tracker_for_FBLA
 
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            detailedUser = new DetailedUser(login, DGV.Rows[e.RowIndex].Cells["Username"].Value.ToString());
+            detailedUser = new DetailedUser(login, DGV.Rows[e.RowIndex].Cells["Username"].Value.ToString(), true);
             detailedUser.Show();
         }
 

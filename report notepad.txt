@@ -1,11 +1,3 @@
-Weekly & Admin
-	Start of Week
-	Student Number
-	Full Name
-	Hours
-	Total Hours
-	CSA Category
-	End of Week
 Monthly & Admin
 	Month Name
 	Student Number

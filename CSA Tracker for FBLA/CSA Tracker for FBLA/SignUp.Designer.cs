@@ -114,8 +114,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PassBox.Location = new System.Drawing.Point(112, 225);
             this.PassBox.Name = "PassBox";
+            this.PassBox.PasswordChar = '*';
             this.PassBox.Size = new System.Drawing.Size(195, 20);
             this.PassBox.TabIndex = 4;
+            this.PassBox.UseSystemPasswordChar = true;
             this.PassBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PassBox_KeyDown);
             // 
             // SignUpButton

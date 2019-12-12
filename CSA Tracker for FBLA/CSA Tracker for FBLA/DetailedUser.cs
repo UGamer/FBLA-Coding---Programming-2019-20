@@ -27,7 +27,7 @@ namespace CSA_Tracker_for_FBLA
 
         public ManageService manageService;
 
-        public DetailedUser(Login login, string user)
+        public DetailedUser(Login login, string user, bool admin)
         {
             this.login = login;
             this.user = user;
@@ -109,10 +109,12 @@ namespace CSA_Tracker_for_FBLA
 
             ChangeTheme();
 
-            if (login.UserBox.Text == "Admin" || login.settings.rememberUser == "Admin")
+            if (admin)
                 closeAll = false;
-        }
 
+            if (admin)
+                SignOutButton.Visible = false;
+        }
 
         private void SignOutButton_Click(object sender, EventArgs e)
         {
@@ -151,7 +153,32 @@ namespace CSA_Tracker_for_FBLA
 
             con.Close();
 
-            DGV.DataSource = table;
+            DataTable newTable = new DataTable();
+            newTable.Columns.Add("Id");
+            newTable.Columns.Add("StudentNumber");
+            newTable.Columns.Add("StartDate");
+            newTable.Columns.Add("Activity");
+            newTable.Columns.Add("Hours");
+            newTable.Columns.Add("EndDate");
+
+            DataRow row;
+            for (int index = 0; index < table.Rows.Count; index++)
+            {
+                row = newTable.NewRow();
+
+                if (table.Rows[index]["StudentNumber"].ToString() == studentNumber)
+                {
+                    row["StudentNumber"] = studentNumber;
+                    row["StartDate"] = table.Rows[index]["StartDate"].ToString();
+                    row["Activity"] = table.Rows[index]["Activity"].ToString();
+                    row["Hours"] = table.Rows[index]["Hours"].ToString();
+                    row["EndDate"] = table.Rows[index]["EndDate"].ToString();
+
+                    newTable.Rows.Add(row);
+                }
+            }
+
+            DGV.DataSource = newTable;
 
             DGV.Columns["Id"].Visible = false;
             DGV.Columns["StudentNumber"].Visible = false;
