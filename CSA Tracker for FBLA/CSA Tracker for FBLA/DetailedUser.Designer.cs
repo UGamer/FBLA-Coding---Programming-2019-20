@@ -41,6 +41,7 @@
             this.DGVContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SignOutButton = new System.Windows.Forms.Button();
             this.SettingsButton = new System.Windows.Forms.Button();
+            this.ReportButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBox)).BeginInit();
             this.SuspendLayout();
@@ -161,11 +162,22 @@
             this.SettingsButton.UseVisualStyleBackColor = true;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
             // 
+            // ReportButton
+            // 
+            this.ReportButton.Location = new System.Drawing.Point(691, 141);
+            this.ReportButton.Name = "ReportButton";
+            this.ReportButton.Size = new System.Drawing.Size(97, 36);
+            this.ReportButton.TabIndex = 29;
+            this.ReportButton.Text = "📄 Report";
+            this.ReportButton.UseVisualStyleBackColor = true;
+            this.ReportButton.Click += new System.EventHandler(this.ReportButton_Click);
+            // 
             // DetailedUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 491);
+            this.Controls.Add(this.ReportButton);
             this.Controls.Add(this.SignOutButton);
             this.Controls.Add(this.SettingsButton);
             this.Controls.Add(this.DGV);
@@ -201,5 +213,6 @@
         private System.Windows.Forms.Button SignOutButton;
         private System.Windows.Forms.Button SettingsButton;
         public System.Windows.Forms.DataGridView DGV;
+        private System.Windows.Forms.Button ReportButton;
     }
 }

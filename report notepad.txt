@@ -1,0 +1,25 @@
+Weekly & User
+	Start of Week
+	Hours
+	CSA Category
+	End of Week
+
+Weekly & Admin
+	Start of Week
+	Student Number
+	Full Name
+	Hours
+	CSA Category
+	End of Week
+
+Monthly & User
+	Month Name
+	Hours
+	CSA Category
+
+Monthly & Admin
+	Month Name
+	Student Number
+	Full Name
+	Hours
+	CSA Category

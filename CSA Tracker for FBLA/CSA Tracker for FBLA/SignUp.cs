@@ -28,7 +28,9 @@ namespace CSA_Tracker_for_FBLA
             ChangeTheme();
 
             int[] grades = { 6, 7, 8, 9, 10, 11, 12 };
-            GradeBox.Items.AddRange(grades);
+
+            for (int index = 0; index < grades.Length; index++)
+                GradeBox.Items.Add(grades[index]);
 
             string[] questions = CreateSecurityQuestions();
 

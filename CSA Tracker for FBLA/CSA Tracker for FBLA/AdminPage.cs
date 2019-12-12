@@ -17,6 +17,8 @@ namespace CSA_Tracker_for_FBLA
         public ManageUser manageUser;
         public DetailedUser detailedUser;
 
+        public Report report;
+
         string connectionString = "Data Source=data.db;Version=3;";
         SQLiteConnection con;
 

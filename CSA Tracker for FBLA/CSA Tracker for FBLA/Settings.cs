@@ -69,6 +69,9 @@ namespace CSA_Tracker_for_FBLA
             try { login.detailedUser.manageService.ChangeTheme(); } catch { }
             try { login.adminPage.manageUser.ChangeTheme(); } catch { }
 
+            try { login.adminPage.report.ChangeTheme(); } catch { }
+            try { login.detailedUser.report.ChangeTheme(); } catch { }
+
             if (theme == "Dark")
             {
                 BackColor = Color.FromArgb(41, 41, 41);

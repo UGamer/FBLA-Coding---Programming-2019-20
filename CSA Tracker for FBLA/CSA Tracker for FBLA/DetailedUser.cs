@@ -13,10 +13,11 @@ namespace CSA_Tracker_for_FBLA
 {
     public partial class DetailedUser : Form
     {
-        Login login;
+        public Login login;
+        public Report report;
 
         string user;
-        string studentNumber;
+        public string studentNumber;
 
         string connectionString = "Data Source=data.db;Version=3;";
         SQLiteConnection con;
@@ -226,6 +227,12 @@ namespace CSA_Tracker_for_FBLA
             }
         }
 
+        private void ReportButton_Click(object sender, EventArgs e)
+        {
+            report = new Report(this);
+            report.Show();
+        }
+
         public void ChangeTheme()
         {
             if (login.settings.theme == "Dark")
@@ -303,5 +310,6 @@ namespace CSA_Tracker_for_FBLA
             if (closeAll)
                 login.Close();
         }
+
     }
 }
