@@ -107,13 +107,11 @@ namespace CSA_Tracker_for_FBLA
             FillDGV();
 
             ChangeTheme();
+
+            if (login.UserBox.Text == "Admin" || login.settings.rememberUser == "Admin")
+                closeAll = false;
         }
 
-        private void DetailedUser_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (closeAll)
-                login.Close();
-        }
 
         private void SignOutButton_Click(object sender, EventArgs e)
         {
@@ -298,6 +296,12 @@ namespace CSA_Tracker_for_FBLA
                 SettingsButton.ForeColor = Color.Black;
                 SignOutButton.ForeColor = Color.Black;
             }
+        }
+
+        private void DetailedUser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (closeAll)
+                login.Close();
         }
     }
 }

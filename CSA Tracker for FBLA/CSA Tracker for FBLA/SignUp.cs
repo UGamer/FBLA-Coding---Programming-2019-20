@@ -15,8 +15,6 @@ namespace CSA_Tracker_for_FBLA
     {
         Login login;
 
-        bool signedIn = false;
-
         string connectionString = "Data Source=data.db;Version=3;";
         SQLiteConnection con;
 
@@ -30,7 +28,7 @@ namespace CSA_Tracker_for_FBLA
             ChangeTheme();
 
             int[] grades = { 6, 7, 8, 9, 10, 11, 12 };
-            GradeBox.Items.Add(grades);
+            GradeBox.Items.AddRange(grades);
 
             string[] questions = CreateSecurityQuestions();
 
@@ -70,7 +68,11 @@ namespace CSA_Tracker_for_FBLA
 
                 UserLabel.ForeColor = Color.White;
                 PassLabel.ForeColor = Color.White;
+
+                FirstNameLabel.ForeColor = Color.White;
+                LastNameLabel.ForeColor = Color.White;
                 StudentNumberLabel.ForeColor = Color.White;
+                GradeLabel.ForeColor = Color.White;
 
                 Question1Label.ForeColor = Color.White;
                 Question2Label.ForeColor = Color.White;
@@ -93,7 +95,11 @@ namespace CSA_Tracker_for_FBLA
 
                 UserLabel.ForeColor = Color.Black;
                 PassLabel.ForeColor = Color.Black;
+
+                FirstNameLabel.ForeColor = Color.Black;
+                LastNameLabel.ForeColor = Color.Black;
                 StudentNumberLabel.ForeColor = Color.Black;
+                GradeLabel.ForeColor = Color.Black;
 
                 Question1Label.ForeColor = Color.Black;
                 Question2Label.ForeColor = Color.Black;
@@ -155,6 +161,8 @@ namespace CSA_Tracker_for_FBLA
                 con.Close();
 
                 MessageBox.Show("Sign up successful.", "Signed Up", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.Close();
             }
         }
 
@@ -205,6 +213,11 @@ namespace CSA_Tracker_for_FBLA
                 StudentNumberBox.Focus();
             if (e.KeyData == Keys.Up)
                 StudentNumberBox.Focus();
+        }
+
+        private void SignUp_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            login.Show();
         }
     }
 }
