@@ -201,12 +201,16 @@
             // 
             // Question1Box
             // 
+            this.Question1Box.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Question1Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Question1Box.FormattingEnabled = true;
             this.Question1Box.Location = new System.Drawing.Point(112, 407);
             this.Question1Box.Name = "Question1Box";
             this.Question1Box.Size = new System.Drawing.Size(195, 21);
             this.Question1Box.TabIndex = 14;
+            this.Question1Box.TextChanged += new System.EventHandler(this.QuestionBox_TextChanged);
             // 
             // Answer1Label
             // 
@@ -234,12 +238,16 @@
             // 
             // Question2Box
             // 
+            this.Question2Box.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Question2Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Question2Box.FormattingEnabled = true;
             this.Question2Box.Location = new System.Drawing.Point(112, 459);
             this.Question2Box.Name = "Question2Box";
             this.Question2Box.Size = new System.Drawing.Size(195, 21);
             this.Question2Box.TabIndex = 18;
+            this.Question2Box.TextChanged += new System.EventHandler(this.QuestionBox_TextChanged);
             // 
             // Question2Label
             // 
@@ -277,12 +285,16 @@
             // 
             // Question3Box
             // 
+            this.Question3Box.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Question3Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Question3Box.FormattingEnabled = true;
             this.Question3Box.Location = new System.Drawing.Point(112, 511);
             this.Question3Box.Name = "Question3Box";
             this.Question3Box.Size = new System.Drawing.Size(195, 21);
             this.Question3Box.TabIndex = 22;
+            this.Question3Box.TextChanged += new System.EventHandler(this.QuestionBox_TextChanged);
             // 
             // Question3Label
             // 
@@ -352,6 +364,9 @@
             // 
             // GradeBox
             // 
+            this.GradeBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GradeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GradeBox.FormattingEnabled = true;
             this.GradeBox.Location = new System.Drawing.Point(112, 340);

@@ -18,6 +18,9 @@ namespace CSA_Tracker_for_FBLA
         string connectionString = "Data Source=data.db;Version=3;";
         SQLiteConnection con;
 
+        Question[] questions;
+        List<Question> actualQuestions;
+
         public SignUp(Login login)
         {
             this.login = login;
@@ -32,30 +35,40 @@ namespace CSA_Tracker_for_FBLA
             for (int index = 0; index < grades.Length; index++)
                 GradeBox.Items.Add(grades[index]);
 
-            string[] questions = CreateSecurityQuestions();
+            questions = CreateSecurityQuestions();
 
             Question1Box.Items.AddRange(questions);
             Question2Box.Items.AddRange(questions);
             Question3Box.Items.AddRange(questions);
+
+            for (int index = 0; index < questions.Length; index++)
+                actualQuestions.Add(questions[index]);
         }
 
-        private string[] CreateSecurityQuestions()
+        private Question[] CreateSecurityQuestions()
         {
-            string[] questions = new string[13];
+            Question[] questions = new Question[13];
+            string[] texts = new string[13];
 
-            questions[0] = "What was your address you lived at as a child?";
-            questions[1] = "What were the last four digits of your childhood telephone number?";
-            questions[2] = "What elementary school did you attend?";
-            questions[3] = "What middle school did you attend?";
-            questions[4] = "What high school did you attend?";
-            questions[5] = "In what town or city did you meet your first partner?";
-            questions[6] = "What are the last five digits of your driver's licence number?";
-            questions[7] = "What is your grandmother's (on your mother's side) maiden name?";
-            questions[8] = "What is your partner's mother's maiden name?";
-            questions[9] = "In what town or city did your mother and father meet?";
-            questions[10] = "What time of the day were you born? (hh:mm)";
-            questions[11] = "What time of the day was your first child born? (hh:mm)";
-            questions[12] = "What city was your first job in?";
+            texts[0] = "What was your address you lived at as a child?";
+            texts[1] = "What were the last four digits of your childhood telephone number?";
+            texts[2] = "What elementary school did you attend?";
+            texts[3] = "What middle school did you attend?";
+            texts[4] = "What high school did you attend?";
+            texts[5] = "In what town or city did you meet your first partner?";
+            texts[6] = "What are the last five digits of your driver's licence number?";
+            texts[7] = "What is your grandmother's (on your mother's side) maiden name?";
+            texts[8] = "What is your partner's mother's maiden name?";
+            texts[9] = "In what town or city did your mother and father meet?";
+            texts[10] = "What time of the day were you born? (hh:mm)";
+            texts[11] = "What time of the day was your first child born? (hh:mm)";
+            texts[12] = "What city was your first job in?";
+
+            for (int index = 0; index < texts.Length; index++)
+            {
+                questions[index].Index = index;
+                questions[index].Text = texts[index];
+            }
 
             return questions;
         }
@@ -172,7 +185,10 @@ namespace CSA_Tracker_for_FBLA
         {
             bool move = true;
 
-            bool userBoxEmpty, userBoxShort, passBoxEmpty, passBoxShort, passHasUpper, passHasLower, passHasNumber, passHasSpecial, studentNumberEmpty, question1Empty, answer1Empty, question2Empty, answer2Empty, question3Empty, answer3Empty;
+            bool userBoxEmpty, userBoxShort, passBoxEmpty, passBoxShort, 
+                passHasUpper, passHasLower, passHasNumber, passHasSpecial, 
+                studentNumberEmpty, question1Empty, answer1Empty, question2Empty, 
+                answer2Empty, question3Empty, answer3Empty;
 
             userBoxEmpty = false;
             
@@ -220,6 +236,22 @@ namespace CSA_Tracker_for_FBLA
         private void SignUp_FormClosed(object sender, FormClosedEventArgs e)
         {
             login.Show();
+        }
+
+        private void QuestionBox_TextChanged(object sender, EventArgs e)
+        {
+            actualQuestions.RemoveAt();
+        }
+    }
+
+    public class Question
+    {
+        public int Index { get; set; }
+        public string Text { get; set; }
+
+        public Question()
+        {
+
         }
     }
 }

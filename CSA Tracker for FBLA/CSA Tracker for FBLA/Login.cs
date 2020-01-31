@@ -107,7 +107,10 @@ namespace CSA_Tracker_for_FBLA
 
         private void SignInButton_Click(object sender, EventArgs e)
         {
-            AttemptSignIn();
+            if (UserBox.Text.Trim() != "" && PassBox.Text.Trim() != "")
+                AttemptSignIn();
+            else
+                MessageBox.Show("Please fill out both User and Password fields.", "Required Field(s) Not Filled", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void AttemptSignIn()
@@ -126,20 +129,30 @@ namespace CSA_Tracker_for_FBLA
             {
                 if (PassBox.Text == "CSA")
                     SignIn("Admin");
+                else
+                    MessageBox.Show("Unknown username and password combination.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
+                bool unknownUser = true;
                 for (int index = 0; index < table.Rows.Count; index++)
                 {
                     if (table.Rows[index][0].ToString() == UserBox.Text)
                     {
+                        unknownUser = false;
                         if (table.Rows[index][1].ToString() == PassBox.Text)
                         {
                             SignIn(UserBox.Text);
                         }
+                        else
+                        {
+                            MessageBox.Show("Unknown username and password combination.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-
                 }
+
+                if (unknownUser)
+                    MessageBox.Show("Unknown username and password combination.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             if (signedIn)
@@ -194,7 +207,12 @@ namespace CSA_Tracker_for_FBLA
         private void PassBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
-                AttemptSignIn();
+            {
+                if (UserBox.Text.Trim() != "" && PassBox.Text.Trim() != "")
+                    AttemptSignIn();
+                else
+                    MessageBox.Show("Please fill out both User and Password fields.", "Required Field(s) Not Filled", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             if (e.KeyData == Keys.Up)
                 UserBox.Focus();
         }
