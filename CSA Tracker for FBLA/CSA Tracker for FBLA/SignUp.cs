@@ -240,7 +240,7 @@ namespace CSA_Tracker_for_FBLA
 
         private void QuestionBox_TextChanged(object sender, EventArgs e)
         {
-            actualQuestions.RemoveAt();
+            //actualQuestions.RemoveAt();
         }
     }
 

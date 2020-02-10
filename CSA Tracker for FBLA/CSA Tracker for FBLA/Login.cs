@@ -216,5 +216,11 @@ namespace CSA_Tracker_for_FBLA
             if (e.KeyData == Keys.Up)
                 UserBox.Focus();
         }
+
+        private void ForgotLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ForgotLogin forgotLogin = new ForgotLogin();
+            forgotLogin.Show();
+        }
     }
 }

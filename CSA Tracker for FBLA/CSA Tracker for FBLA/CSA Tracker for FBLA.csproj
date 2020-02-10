@@ -58,6 +58,12 @@
     <Compile Include="AdminPage.Designer.cs">
       <DependentUpon>AdminPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="ForgotLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForgotLogin.Designer.cs">
+      <DependentUpon>ForgotLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Report.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     </Compile>
     <EmbeddedResource Include="AdminPage.resx">
       <DependentUpon>AdminPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForgotLogin.resx">
+      <DependentUpon>ForgotLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>

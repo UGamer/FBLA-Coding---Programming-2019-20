@@ -48,9 +48,10 @@
             this.PleaseSignInLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.PleaseSignInLabel.AutoSize = true;
             this.PleaseSignInLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PleaseSignInLabel.Location = new System.Drawing.Point(80, 174);
+            this.PleaseSignInLabel.Location = new System.Drawing.Point(160, 335);
+            this.PleaseSignInLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.PleaseSignInLabel.Name = "PleaseSignInLabel";
-            this.PleaseSignInLabel.Size = new System.Drawing.Size(132, 24);
+            this.PleaseSignInLabel.Size = new System.Drawing.Size(267, 44);
             this.PleaseSignInLabel.TabIndex = 1;
             this.PleaseSignInLabel.Text = "Please sign in.";
             this.PleaseSignInLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -60,9 +61,10 @@
             this.UserBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.UserBox.Location = new System.Drawing.Point(75, 211);
+            this.UserBox.Location = new System.Drawing.Point(150, 406);
+            this.UserBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.UserBox.Name = "UserBox";
-            this.UserBox.Size = new System.Drawing.Size(190, 20);
+            this.UserBox.Size = new System.Drawing.Size(376, 31);
             this.UserBox.TabIndex = 2;
             this.UserBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UserBox_KeyDown);
             // 
@@ -72,9 +74,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UserLabel.AutoSize = true;
-            this.UserLabel.Location = new System.Drawing.Point(19, 214);
+            this.UserLabel.Location = new System.Drawing.Point(38, 412);
+            this.UserLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.UserLabel.Name = "UserLabel";
-            this.UserLabel.Size = new System.Drawing.Size(32, 13);
+            this.UserLabel.Size = new System.Drawing.Size(63, 25);
             this.UserLabel.TabIndex = 3;
             this.UserLabel.Text = "User:";
             // 
@@ -84,9 +87,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PassLabel.AutoSize = true;
-            this.PassLabel.Location = new System.Drawing.Point(19, 240);
+            this.PassLabel.Location = new System.Drawing.Point(38, 462);
+            this.PassLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.PassLabel.Name = "PassLabel";
-            this.PassLabel.Size = new System.Drawing.Size(56, 13);
+            this.PassLabel.Size = new System.Drawing.Size(112, 25);
             this.PassLabel.TabIndex = 5;
             this.PassLabel.Text = "Password:";
             // 
@@ -95,10 +99,11 @@
             this.PassBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PassBox.Location = new System.Drawing.Point(75, 237);
+            this.PassBox.Location = new System.Drawing.Point(150, 456);
+            this.PassBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.PassBox.Name = "PassBox";
             this.PassBox.PasswordChar = '*';
-            this.PassBox.Size = new System.Drawing.Size(190, 20);
+            this.PassBox.Size = new System.Drawing.Size(376, 31);
             this.PassBox.TabIndex = 4;
             this.PassBox.UseSystemPasswordChar = true;
             this.PassBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PassBox_KeyDown);
@@ -106,9 +111,10 @@
             // SignInButton
             // 
             this.SignInButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.SignInButton.Location = new System.Drawing.Point(168, 315);
+            this.SignInButton.Location = new System.Drawing.Point(336, 606);
+            this.SignInButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.SignInButton.Name = "SignInButton";
-            this.SignInButton.Size = new System.Drawing.Size(97, 36);
+            this.SignInButton.Size = new System.Drawing.Size(194, 69);
             this.SignInButton.TabIndex = 6;
             this.SignInButton.Text = "Sign In";
             this.SignInButton.UseVisualStyleBackColor = true;
@@ -117,9 +123,10 @@
             // SignUpButton
             // 
             this.SignUpButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.SignUpButton.Location = new System.Drawing.Point(22, 315);
+            this.SignUpButton.Location = new System.Drawing.Point(44, 606);
+            this.SignUpButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.SignUpButton.Name = "SignUpButton";
-            this.SignUpButton.Size = new System.Drawing.Size(97, 36);
+            this.SignUpButton.Size = new System.Drawing.Size(194, 69);
             this.SignUpButton.TabIndex = 7;
             this.SignUpButton.Text = "Sign Up";
             this.SignUpButton.UseVisualStyleBackColor = true;
@@ -132,20 +139,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ForgotLabel.AutoSize = true;
             this.ForgotLabel.LinkColor = System.Drawing.Color.DodgerBlue;
-            this.ForgotLabel.Location = new System.Drawing.Point(72, 261);
+            this.ForgotLabel.Location = new System.Drawing.Point(144, 502);
+            this.ForgotLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.ForgotLabel.Name = "ForgotLabel";
-            this.ForgotLabel.Size = new System.Drawing.Size(65, 13);
+            this.ForgotLabel.Size = new System.Drawing.Size(131, 25);
             this.ForgotLabel.TabIndex = 8;
             this.ForgotLabel.TabStop = true;
             this.ForgotLabel.Text = "Can\'t log in?";
+            this.ForgotLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ForgotLabel_LinkClicked);
             // 
             // SettingsButton
             // 
             this.SettingsButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.SettingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SettingsButton.Location = new System.Drawing.Point(22, 357);
+            this.SettingsButton.Location = new System.Drawing.Point(44, 687);
+            this.SettingsButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.SettingsButton.Name = "SettingsButton";
-            this.SettingsButton.Size = new System.Drawing.Size(39, 36);
+            this.SettingsButton.Size = new System.Drawing.Size(78, 69);
             this.SettingsButton.TabIndex = 9;
             this.SettingsButton.Text = "⚙";
             this.SettingsButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -158,9 +168,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RememberBox.AutoSize = true;
-            this.RememberBox.Location = new System.Drawing.Point(22, 281);
+            this.RememberBox.Location = new System.Drawing.Point(44, 540);
+            this.RememberBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.RememberBox.Name = "RememberBox";
-            this.RememberBox.Size = new System.Drawing.Size(94, 17);
+            this.RememberBox.Size = new System.Drawing.Size(183, 29);
             this.RememberBox.TabIndex = 10;
             this.RememberBox.Text = "Remember me";
             this.RememberBox.UseVisualStyleBackColor = true;
@@ -169,19 +180,20 @@
             // 
             this.LogoBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LogoBox.Image = global::CSA_Tracker_for_FBLA.Properties.Resources.logo;
-            this.LogoBox.Location = new System.Drawing.Point(22, 12);
+            this.LogoBox.Location = new System.Drawing.Point(44, 23);
+            this.LogoBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.LogoBox.Name = "LogoBox";
-            this.LogoBox.Size = new System.Drawing.Size(243, 155);
+            this.LogoBox.Size = new System.Drawing.Size(486, 298);
             this.LogoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.LogoBox.TabIndex = 0;
             this.LogoBox.TabStop = false;
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(289, 406);
+            this.ClientSize = new System.Drawing.Size(578, 781);
             this.Controls.Add(this.RememberBox);
             this.Controls.Add(this.SettingsButton);
             this.Controls.Add(this.ForgotLabel);
@@ -194,6 +206,7 @@
             this.Controls.Add(this.PleaseSignInLabel);
             this.Controls.Add(this.LogoBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Login";
             this.Text = "FBLA CSA Tracker";
             ((System.ComponentModel.ISupportInitialize)(this.LogoBox)).EndInit();
