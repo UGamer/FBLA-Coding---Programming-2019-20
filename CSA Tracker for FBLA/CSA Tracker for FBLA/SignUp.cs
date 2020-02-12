@@ -41,6 +41,7 @@ namespace CSA_Tracker_for_FBLA
             Question2Box.Items.AddRange(questions);
             Question3Box.Items.AddRange(questions);
 
+            actualQuestions = new List<Question>();
             for (int index = 0; index < questions.Length; index++)
                 actualQuestions.Add(questions[index]);
         }
@@ -66,6 +67,7 @@ namespace CSA_Tracker_for_FBLA
 
             for (int index = 0; index < texts.Length; index++)
             {
+                questions[index] = new Question();
                 questions[index].Index = index;
                 questions[index].Text = texts[index];
             }
