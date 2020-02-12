@@ -19,7 +19,10 @@ namespace CSA_Tracker_for_FBLA
         SQLiteConnection con;
 
         Question[] questions;
+
+        List<int> avoidedIndexes;
         List<Question> actualQuestions;
+        bool handled = false;
 
         public SignUp(Login login)
         {
@@ -48,7 +51,7 @@ namespace CSA_Tracker_for_FBLA
 
         private Question[] CreateSecurityQuestions()
         {
-            Question[] questions = new Question[13];
+            questions = new Question[13];
             string[] texts = new string[13];
 
             texts[0] = "What was your address you lived at as a child?";
@@ -242,7 +245,63 @@ namespace CSA_Tracker_for_FBLA
 
         private void QuestionBox_TextChanged(object sender, EventArgs e)
         {
-            //actualQuestions.RemoveAt();
+            if (!handled)
+            {
+                Console.WriteLine("NOT HANDLED");
+
+                actualQuestions = new List<Question>();
+                avoidedIndexes = new List<int>();
+
+                try { avoidedIndexes.Add((Question1Box.SelectedItem as Question).Index); } catch { }
+                try { avoidedIndexes.Add((Question2Box.SelectedItem as Question).Index); } catch { }
+                try { avoidedIndexes.Add((Question3Box.SelectedItem as Question).Index); } catch { }
+
+                for (int index = 0; index < questions.Length; index++)
+                {
+                    bool add = true;
+
+                    for (int index2 = 0; index2 < avoidedIndexes.Count; index2++)
+                        if (questions[index].Index == avoidedIndexes[index2])
+                            add = false;
+
+                    if (add)
+                        actualQuestions.Add(questions[index]);
+                }
+
+                Question q1 = new Question();
+                Question q2 = new Question();
+                Question q3 = new Question();
+
+                try { q1 = Question1Box.SelectedItem as Question; } catch { }
+                try { q2 = Question2Box.SelectedItem as Question; } catch { }
+                try { q3 = Question3Box.SelectedItem as Question; } catch { }
+
+                Question1Box.Items.Clear();
+                Question2Box.Items.Clear();
+                Question3Box.Items.Clear();
+
+                for (int index = 0; index < actualQuestions.Count; index++)
+                {
+                    Question1Box.Items.Add(actualQuestions[index]);
+                    Question2Box.Items.Add(actualQuestions[index]);
+                    Question3Box.Items.Add(actualQuestions[index]);
+                }
+
+                handled = true;
+
+                Console.WriteLine("SET TO HANDLED");
+
+                try { Question1Box.Items.Add(q1); } catch { }
+                try { Question2Box.Items.Add(q2); } catch { }
+                try { Question3Box.Items.Add(q3); } catch { }
+
+                try { handled = true; Question1Box.SelectedItem = q1; } catch { }
+                try { handled = true; Question2Box.SelectedItem = q2; } catch { }
+                try { handled = true; Question3Box.SelectedItem = q3; } catch { }
+            }
+
+            handled = false;
+            Console.WriteLine("SET TO NOT HANDLED");
         }
     }
 
@@ -254,6 +313,11 @@ namespace CSA_Tracker_for_FBLA
         public Question()
         {
 
+        }
+
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }
